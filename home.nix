@@ -100,7 +100,28 @@
         theme = "dracula";
         default_shell = "nu";
         simplified_ui = true;
+        default_layout = "compact";
         show_startup_tips = false;
+        keybinds = {
+          unbind = ["Ctrl h" "Ctrl n"];
+
+          "shared_except \"locked\" \"resize\"" = {
+            bind = {
+              _args = ["Ctrl z"];
+              _children = [
+                {SwitchToMode._args = ["resize"];}
+              ];
+            };
+          };
+          "shared_except \"locked\" \"move\"" = {
+            bind = {
+              _args = ["Ctrl e"];
+              _children = [
+                {SwitchToMode._args = ["move"];}
+              ];
+            };
+          };
+        };
       };
     };
 
