@@ -9,12 +9,12 @@
 
   home.stateVersion = "25.05";
   home.packages = with pkgs; [
-    git
     git-lfs
     tig
     just
     ytt
     dust
+    delta
   ];
 
   home.sessionVariables = {
@@ -28,6 +28,7 @@
   programs = {
     home-manager.enable = true;
     bat.enable = true;
+    git.enable = true;
     ripgrep.enable = true;
     skim.enable = true;
     zoxide.enable = true;
