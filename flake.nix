@@ -10,6 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nixgl.url = "github:nix-community/nixGL";
   };
 
   outputs = {
@@ -18,6 +19,7 @@
     nixpkgs,
     home-manager,
     nix-homebrew,
+    nixgl,
     ...
   }: {
     darwinConfigurations.mac = darwin.lib.darwinSystem {
@@ -31,6 +33,13 @@
     };
 
     homeConfigurations = {
+      arch = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [./modules/home/arch.nix];
+        extraSpecialArgs = {
+          inherit nixgl;
+        };
+      };
       server = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [./modules/home/server.nix];

@@ -1,12 +1,8 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
-  home.username = lib.mkIf pkgs.stdenv.isLinux (builtins.getEnv "USER");
-  home.homeDirectory = lib.mkIf pkgs.stdenv.isLinux (builtins.getEnv "HOME");
-
   home.stateVersion = "25.05";
   home.packages = with pkgs; [
     git-lfs
@@ -239,6 +235,7 @@
         alejandra
         yaml-language-server
         nixd
+        nil
       ];
     };
   };

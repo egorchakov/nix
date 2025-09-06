@@ -4,7 +4,7 @@
   ...
 }: let
   username = "evgenii";
-  homeDirectory = "/Users/evgenii";
+  homeDirectory = "/Users/${username}";
 in {
   nix.settings.experimental-features = "nix-command flakes";
   nixpkgs.config.allowUnfree = true;
