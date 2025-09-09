@@ -1,10 +1,21 @@
-{...}: {
+{lib, ...}: {
   imports = [./shared.nix];
   programs = {
     aerospace = {
       enable = true;
       launchd.enable = true;
       userSettings = {
+        exec.env-vars = {
+          PATH = lib.concatStringsSep ":" [
+            "/etc/profiles/per-user/evgenii/bin" # FIXME
+            "/run/current-system/sw/bin"
+            "/usr/local/bin"
+            "/usr/bin"
+            "/bin"
+            "/usr/sbin"
+            "/sbin"
+          ];
+        };
         mode.main.binding = {
           alt-enter = "exec-and-forget open -n -b com.mitchellh.ghostty";
           alt-o = "exec-and-forget open -n -b com.google.Chrome";
@@ -68,6 +79,25 @@
           "10" = "secondary";
         };
       };
+    };
+  };
+  xdg.configFile = {
+    "ghostty/config" = {
+      enable = true;
+      text = ''
+        shell-integration = none
+        command = nu
+
+        window-inherit-working-directory = true
+        window-decoration = false
+        macos-titlebar-style = hidden
+
+        font-size = 20
+        font-family = Iosevka Fixed
+        theme = UltraDark
+
+        focus-follows-mouse = true
+      '';
     };
   };
 }
