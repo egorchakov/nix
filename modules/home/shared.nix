@@ -22,6 +22,7 @@
   };
 
   programs = {
+    nh.enable = true;
     home-manager.enable = true;
     bat.enable = true;
     git.enable = true;
