@@ -245,4 +245,14 @@
       ];
     };
   };
+
+  xdg.configFile = {
+    "tig/config" = {
+      enable = true;
+      text = ''
+        bind main R !git rebase -i %(commit)^
+        bind diff R !git rebase -i %(commit)^
+      '';
+    };
+  };
 }
