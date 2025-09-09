@@ -5,12 +5,10 @@
 }: {
   home.stateVersion = "25.05";
   home.packages = with pkgs; [
-    git-lfs
     tig
     just
     ytt
     dust
-    delta
   ];
 
   home.sessionVariables = {
@@ -25,11 +23,18 @@
     nh.enable = true;
     home-manager.enable = true;
     bat.enable = true;
-    git.enable = true;
     ripgrep.enable = true;
     skim.enable = true;
     zoxide.enable = true;
     uv.enable = true;
+
+    git = {
+      enable = true;
+      userEmail = "evgorchakov@gmail.com";
+      userName = "Evgenii Gorchakov";
+      delta.enable = true;
+      lfs.enable = true;
+    };
 
     nix-your-shell = {
       enable = true;
