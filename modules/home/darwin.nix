@@ -1,23 +1,13 @@
-{lib, ...}: {
+{...}: {
   imports = [./shared.nix];
+
   programs = {
     aerospace = {
       enable = true;
       launchd.enable = true;
       userSettings = {
-        exec.env-vars = {
-          PATH = lib.concatStringsSep ":" [
-            "/etc/profiles/per-user/evgenii/bin" # FIXME
-            "/run/current-system/sw/bin"
-            "/usr/local/bin"
-            "/usr/bin"
-            "/bin"
-            "/usr/sbin"
-            "/sbin"
-          ];
-        };
         mode.main.binding = {
-          alt-enter = "exec-and-forget open -n -b com.mitchellh.ghostty";
+          alt-enter = "exec-and-forget open -n -a wezterm";
           alt-o = "exec-and-forget open -n -b com.google.Chrome";
           alt-q = "close --quit-if-last-window";
           alt-slash = "layout tiles horizontal vertical";
@@ -81,6 +71,7 @@
       };
     };
   };
+
   xdg.configFile = {
     "ghostty/config" = {
       enable = true;

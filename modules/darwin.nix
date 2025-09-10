@@ -1,14 +1,12 @@
 {
   self,
   pkgs,
+  user,
   ...
-}: let
-  username = "evgenii";
-  homeDirectory = "/Users/${username}";
-in {
+}: {
   nix.settings.experimental-features = "nix-command flakes";
   nixpkgs.config.allowUnfree = true;
-  system.primaryUser = username;
+  system.primaryUser = user;
   system.configurationRevision = self.rev or self.dirtyRev or null;
   system.stateVersion = 6;
 
@@ -18,15 +16,15 @@ in {
     nushell
   ];
 
-  users.users."${username}" = {
-    home = homeDirectory;
+  users.users."${user}" = {
+    home = "/Users/${user}";
     shell = pkgs.nushell;
   };
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users."${username}" = {
+    users."${user}" = {
       imports = [./home/darwin.nix];
     };
   };
@@ -34,7 +32,7 @@ in {
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
-    user = username;
+    user = user;
     autoMigrate = true;
   };
 

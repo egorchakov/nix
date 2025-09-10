@@ -13,7 +13,7 @@
     nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     darwin,
     nixpkgs,
@@ -21,33 +21,53 @@
     nix-homebrew,
     nixgl,
     ...
-  }: {
-    darwinConfigurations.mac = darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      specialArgs = {inherit self;};
-      modules = [
-        nix-homebrew.darwinModules.nix-homebrew
-        home-manager.darwinModules.home-manager
-        ./modules/darwin.nix
-      ];
+  }: let
+    user = "evgenii";
+  in {
+    darwinConfigurations = {
+      mbp = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = inputs // {inherit user;};
+        modules = [
+          nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          ./modules/darwin.nix
+        ];
+      };
     };
 
-    homeConfigurations = {
-      arch = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [./modules/home/arch.nix];
-        extraSpecialArgs = {
-          inherit nixgl;
+    homeConfigurations =
+      {
+        "${user}@mbp" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = {inherit user;};
+          modules = [
+            {
+              home.username = user;
+              home.homeDirectory = "/Users/${user}";
+            }
+            ./modules/home/darwin.nix
+          ];
         };
-      };
-      server = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [./modules/home/server.nix];
-      };
-      kit = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
-        modules = [./modules/home/kit.nix];
-      };
-    };
+
+        "${user}@arch" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {inherit user nixgl;};
+          modules = [./modules/home/arch.nix];
+        };
+      }
+      // nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux"] (
+        system: let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {inherit user;};
+            modules = [
+              ./modules/home/shared.nix
+              ./modules/home/linux.nix
+            ];
+          }
+      );
   };
 }

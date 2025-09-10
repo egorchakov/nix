@@ -1,6 +1,4 @@
-{...}: let
-  username = "evgenii";
-in {
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+{user, ...}: {
+  home.username = user;
+  home.homeDirectory = "/home/${user}";
 }

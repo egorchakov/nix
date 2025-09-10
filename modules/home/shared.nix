@@ -9,6 +9,8 @@
     just
     ytt
     dust
+    nu_scripts
+    iosevka
   ];
 
   home.sessionVariables = {
@@ -27,6 +29,32 @@
     skim.enable = true;
     zoxide.enable = true;
     uv.enable = true;
+
+    wezterm = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      extraConfig = ''
+        local wezterm = require 'wezterm'
+
+        return {
+          default_prog = { 'zsh', '-l', '-c', 'nu'},
+          font = wezterm.font {
+            family = 'Iosevka',
+          },
+          font_size = 20,
+          color_scheme = 'UltraDark',
+          hide_tab_bar_if_only_one_tab = true,
+          front_end = "WebGpu",
+        }
+      '';
+    };
+
+    direnv = {
+      enable = true;
+      enableNushellIntegration = true;
+      nix-direnv.enable = true;
+    };
 
     git = {
       enable = true;
@@ -95,6 +123,21 @@
       settings = {
         show_banner = false;
       };
+      extraConfig = ''
+        const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${pkgs.nu_scripts}/share/nu_scripts']
+
+        use custom-completions/aerospace/aerospace-completions.nu *
+        use custom-completions/docker/docker-completions.nu *
+        use custom-completions/nix/nix-completions.nu *
+        use custom-completions/git/git-completions.nu *
+        use custom-completions/just/just-completions.nu *
+        use custom-completions/pre-commit/pre-commit-completions.nu *
+        use custom-completions/rg/rg-completions.nu *
+        use custom-completions/ssh/ssh-completions.nu *
+        use custom-completions/uv/uv-completions.nu *
+        use custom-completions/zellij/zellij-completions.nu *
+        use custom-completions/zoxide/zoxide-completions.nu *
+      '';
     };
 
     zellij = {
@@ -211,7 +254,7 @@
           {
             name = "nix";
             auto-format = true;
-            formatter = {command = "alejandra";};
+            formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
           }
           {
             name = "python";
@@ -225,12 +268,16 @@
         ];
 
         language-server = {
-          basedpyright = with pkgs; {
-            command = "${basedpyright}/bin/basedpyright-langserver";
+          basedpyright = {
+            command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
             config = {
               lint = true;
               inlayHint.enable = true;
             };
+          };
+          nixd = {
+            command = "${pkgs.nixd}/bin/nixd";
+            args = ["--semantic-tokens=true"];
           };
         };
       };
@@ -238,10 +285,7 @@
         ruff
         ty
         tombi
-        alejandra
         yaml-language-server
-        nixd
-        nil
       ];
     };
   };
