@@ -29,6 +29,7 @@
     skim.enable = true;
     zoxide.enable = true;
     uv.enable = true;
+    bottom.enable = true;
 
     wezterm = {
       enable = true;
@@ -46,12 +47,14 @@
           color_scheme = 'UltraDark',
           hide_tab_bar_if_only_one_tab = true,
           front_end = "WebGpu",
+          window_decorations = "RESIZE",
         }
       '';
     };
 
     direnv = {
       enable = true;
+      silent = true;
       enableNushellIntegration = true;
       nix-direnv.enable = true;
     };
@@ -62,6 +65,9 @@
       userName = "Evgenii Gorchakov";
       delta.enable = true;
       lfs.enable = true;
+      extraConfig = {
+        push.autoSetupRemote = true;
+      };
     };
 
     nix-your-shell = {
@@ -108,7 +114,7 @@
     starship = {
       enable = true;
       settings = {
-        format = "$all$nix_shell";
+        format = "$username$hostname$directory$git_branch$git_state$nix_shell$direnv$python\n$character";
       };
       enableNushellIntegration = true;
     };
@@ -149,7 +155,11 @@
         default_layout = "compact";
         show_startup_tips = false;
         keybinds = {
-          unbind = ["Ctrl h" "Ctrl n"];
+          unbind = [
+            "Ctrl h"
+            "Ctrl n"
+            "Ctrl o"
+          ];
 
           "shared_except \"locked\" \"resize\"" = {
             bind = {
@@ -259,7 +269,7 @@
           {
             name = "python";
             auto-format = true;
-            language-servers = ["basedpyright" "ruff" "ty"];
+            language-servers = ["ruff" "ty"];
           }
           {
             name = "toml";
@@ -268,13 +278,29 @@
         ];
 
         language-server = {
-          basedpyright = {
-            command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
+          ty = {
+            command = "${pkgs.ty}/bin/ty";
+            args = ["server"];
             config = {
-              lint = true;
-              inlayHint.enable = true;
+              experimental = {
+                rename = true;
+                autoImport = true;
+              };
             };
           };
+
+          ruff = {
+            command = "${pkgs.ruff}/bin/ruff";
+            args = ["server"];
+            config = {
+              settings = {
+                format = {
+                  preview = true;
+                };
+              };
+            };
+          };
+
           nixd = {
             command = "${pkgs.nixd}/bin/nixd";
             args = ["--semantic-tokens=true"];
@@ -282,8 +308,6 @@
         };
       };
       extraPackages = with pkgs; [
-        ruff
-        ty
         tombi
         yaml-language-server
       ];
