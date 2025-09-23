@@ -14,7 +14,6 @@
   };
 
   outputs = inputs @ {
-    self,
     darwin,
     nixpkgs,
     home-manager,
@@ -29,26 +28,50 @@
         system = "aarch64-darwin";
         specialArgs = inputs // {inherit user;};
         modules = [
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
           ./modules/darwin.nix
+
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = user;
+              autoMigrate = true;
+            };
+          }
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${user}" = ./modules/home/darwin.nix;
+            };
+          }
         ];
       };
     };
 
     homeConfigurations =
       {
-        "${user}@mbp" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          extraSpecialArgs = {inherit user;};
-          modules = [
-            {
-              home.username = user;
-              home.homeDirectory = "/Users/${user}";
-            }
-            ./modules/home/darwin.nix
-          ];
-        };
+        "${user}@mbp" = let
+          system = "aarch64-darwin";
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {inherit user;};
+            modules = [
+              {
+                home.username = user;
+                home.homeDirectory = "/Users/${user}";
+              }
+              ./modules/home/darwin.nix
+            ];
+          };
 
         "${user}@arch" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

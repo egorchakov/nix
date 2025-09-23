@@ -1,5 +1,12 @@
-{...}: {
-  imports = [./shared.nix];
+{pkgs, ...}: {
+  imports = [
+    ./shared.nix
+    ./gui.nix
+  ];
+
+  home.packages = with pkgs; [
+    whatsapp-for-mac
+  ];
 
   programs = {
     aerospace = {
@@ -7,7 +14,7 @@
       launchd.enable = true;
       userSettings = {
         mode.main.binding = {
-          alt-enter = "exec-and-forget open -n -a wezterm";
+          alt-enter = "exec-and-forget open -n -a ghostty";
           alt-o = "exec-and-forget open -n -b com.google.Chrome";
           alt-q = "close --quit-if-last-window";
           alt-slash = "layout tiles horizontal vertical";
@@ -70,25 +77,7 @@
         };
       };
     };
-  };
 
-  xdg.configFile = {
-    "ghostty/config" = {
-      enable = true;
-      text = ''
-        shell-integration = none
-        command = nu
-
-        window-inherit-working-directory = true
-        window-decoration = false
-        macos-titlebar-style = hidden
-
-        font-size = 20
-        font-family = Iosevka Fixed
-        theme = UltraDark
-
-        focus-follows-mouse = true
-      '';
-    };
+    ghostty.package = pkgs.ghostty-bin;
   };
 }

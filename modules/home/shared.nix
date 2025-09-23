@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   ...
@@ -7,9 +8,7 @@
   home.packages = with pkgs; [
     tig
     just
-    ytt
     dust
-    nu_scripts
     iosevka
   ];
 
@@ -17,12 +16,7 @@
     EDITOR = "hx";
   };
 
-  home.shell = {
-    enableNushellIntegration = true;
-  };
-
   programs = {
-    nh.enable = true;
     home-manager.enable = true;
     bat.enable = true;
     ripgrep.enable = true;
@@ -30,32 +24,15 @@
     zoxide.enable = true;
     uv.enable = true;
     bottom.enable = true;
-
-    wezterm = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      extraConfig = ''
-        local wezterm = require 'wezterm'
-
-        return {
-          default_prog = { 'zsh', '-l', '-c', 'nu'},
-          font = wezterm.font {
-            family = 'Iosevka',
-          },
-          font_size = 20,
-          color_scheme = 'UltraDark',
-          hide_tab_bar_if_only_one_tab = true,
-          front_end = "WebGpu",
-          window_decorations = "RESIZE",
-        }
-      '';
-    };
+    htop.enable = true;
+    gh.enable = true;
+    nix-your-shell.enable = true;
+    carapace.enable = true;
+    nh.enable = true;
 
     direnv = {
       enable = true;
       silent = true;
-      enableNushellIntegration = true;
       nix-direnv.enable = true;
     };
 
@@ -70,14 +47,8 @@
       };
     };
 
-    nix-your-shell = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
-
     yazi = {
       enable = true;
-      enableNushellIntegration = true;
       plugins = with pkgs.yaziPlugins; {
         full-border = full-border;
         chmod = chmod;
@@ -93,14 +64,8 @@
       '';
     };
 
-    carapace = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
-
     atuin = {
       enable = true;
-      enableNushellIntegration = true;
       settings = {
         auto_sync = false;
         update_check = false;
@@ -116,7 +81,6 @@
       settings = {
         format = "$username$hostname$directory$git_branch$git_state$nix_shell$direnv$python\n$character";
       };
-      enableNushellIntegration = true;
     };
 
     nushell = {
@@ -142,7 +106,6 @@
         use custom-completions/ssh/ssh-completions.nu *
         use custom-completions/uv/uv-completions.nu *
         use custom-completions/zellij/zellij-completions.nu *
-        use custom-completions/zoxide/zoxide-completions.nu *
       '';
     };
 
@@ -310,6 +273,7 @@
       extraPackages = with pkgs; [
         tombi
         yaml-language-server
+        vscode-json-languageserver
       ];
     };
   };
