@@ -1,9 +1,9 @@
 {
-  self,
   config,
   pkgs,
   ...
-}: {
+}:
+{
   home.stateVersion = "25.05";
   home.packages = with pkgs; [
     tig
@@ -78,9 +78,7 @@
 
     starship = {
       enable = true;
-      settings = {
-        format = "$username$hostname$directory$git_branch$git_state$nix_shell$direnv$python\n$character";
-      };
+      settings.format = "$username$hostname$directory$git_branch$git_state$nix_shell$direnv$python\n$character";
     };
 
     nushell = {
@@ -126,17 +124,18 @@
 
           "shared_except \"locked\" \"resize\"" = {
             bind = {
-              _args = ["Ctrl z"];
+              _args = [ "Ctrl z" ];
               _children = [
-                {SwitchToMode._args = ["resize"];}
+                { SwitchToMode._args = [ "resize" ]; }
               ];
             };
           };
+
           "shared_except \"locked\" \"move\"" = {
             bind = {
-              _args = ["Ctrl e"];
+              _args = [ "Ctrl e" ];
               _children = [
-                {SwitchToMode._args = ["move"];}
+                { SwitchToMode._args = [ "move" ]; }
               ];
             };
           };
@@ -150,8 +149,12 @@
       themes = {
         tokyonight_black = {
           inherits = "tokyonight";
-          "ui.background" = {fg = "fg";};
-          "ui.text" = {fg = "fg";};
+          "ui.background" = {
+            fg = "fg";
+          };
+          "ui.text" = {
+            fg = "fg";
+          };
         };
       };
 
@@ -176,8 +179,11 @@
               "read-only-indicator"
               "file-modification-indicator"
             ];
-            center = [];
-            right = ["diagnostics" "version-control"];
+            center = [ ];
+            right = [
+              "diagnostics"
+              "version-control"
+            ];
           };
 
           indent-guides = {
@@ -201,23 +207,42 @@
         };
         keys = {
           insert = {
-            esc = ["collapse_selection" "normal_mode"];
+            esc = [
+              "collapse_selection"
+              "normal_mode"
+            ];
           };
 
           normal = {
             ";" = "command_mode";
-            d = ["yank_joined_to_clipboard" "yank" "delete_selection"];
-            y = ["yank_joined_to_clipboard" "yank"];
+            d = [
+              "yank_joined_to_clipboard"
+              "yank"
+              "delete_selection"
+            ];
+            y = [
+              "yank_joined_to_clipboard"
+              "yank"
+            ];
             C-h = "jump_view_left";
             C-j = "jump_view_down";
             C-k = "jump_view_up";
             C-l = "jump_view_right";
-            esc = ["collapse_selection" "keep_primary_selection"];
+            esc = [
+              "collapse_selection"
+              "keep_primary_selection"
+            ];
           };
 
           select = {
-            j = ["extend_line_down" "extend_to_line_bounds"];
-            k = ["extend_line_up" "extend_to_line_bounds"];
+            j = [
+              "extend_line_down"
+              "extend_to_line_bounds"
+            ];
+            k = [
+              "extend_line_up"
+              "extend_to_line_bounds"
+            ];
           };
         };
       };
@@ -227,23 +252,34 @@
           {
             name = "nix";
             auto-format = true;
-            formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
+            formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
           }
           {
             name = "python";
             auto-format = true;
-            language-servers = ["ruff" "ty"];
+            language-servers = [
+              "ruff"
+              "ty"
+            ];
           }
           {
             name = "toml";
             auto-format = true;
+          }
+          {
+            name = "yaml";
+            auto-format = true;
+            formatter = {
+              command = "${pkgs.yamlfmt}/bin/yamlfmt";
+              args = [ "-" ];
+            };
           }
         ];
 
         language-server = {
           ty = {
             command = "${pkgs.ty}/bin/ty";
-            args = ["server"];
+            args = [ "server" ];
             config = {
               experimental = {
                 rename = true;
@@ -254,19 +290,13 @@
 
           ruff = {
             command = "${pkgs.ruff}/bin/ruff";
-            args = ["server"];
-            config = {
-              settings = {
-                format = {
-                  preview = true;
-                };
-              };
-            };
+            args = [ "server" ];
+            config.settings.format.preview = true;
           };
 
           nixd = {
             command = "${pkgs.nixd}/bin/nixd";
-            args = ["--semantic-tokens=true"];
+            args = [ "--semantic-tokens=true" ];
           };
         };
       };
