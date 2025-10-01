@@ -8,6 +8,7 @@
   imports = [
     ./shared.nix
     ./linux.nix
+    ./gui.nix
   ];
 
   nixGL = {

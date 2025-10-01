@@ -78,11 +78,19 @@
             ];
           };
 
-        "${user}@arch" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit user nixgl; };
-          modules = [ ./modules/home/arch.nix ];
-        };
+        "${user}@arch" =
+          let
+            system = "x86_64-linux";
+            pkgs = import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          in
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = { inherit user nixgl; };
+            modules = [ ./modules/home/arch.nix ];
+          };
       }
       // nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
         system:
