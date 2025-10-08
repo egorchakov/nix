@@ -11,6 +11,10 @@
     ./gui.nix
   ];
 
+  home.packages = with pkgs; [
+    bluetui
+  ];
+
   nixGL = {
     packages = nixgl.packages;
     defaultWrapper = "mesa";
