@@ -5,7 +5,6 @@
     google-chrome
     slack
     telegram-desktop
-    sioyek
   ];
 
   programs = {

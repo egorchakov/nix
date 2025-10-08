@@ -260,6 +260,7 @@
             language-servers = [
               "ruff"
               "ty"
+              "basedpyright"
             ];
           }
           {
@@ -277,6 +278,15 @@
         ];
 
         language-server = {
+
+          basedpyright = {
+            # command = "${pkgs.basedpyright}/bin/basedpyright-langserver"; # TODO: uncomment once >=1.31.6
+            command = "basedpyright-langserver";
+            config = {
+              lint = true;
+            };
+          };
+
           ty = {
             command = "${pkgs.ty}/bin/ty";
             args = [ "server" ];
