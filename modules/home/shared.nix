@@ -10,6 +10,9 @@
     just
     dust
     iosevka
+    duckdb
+    glow
+    ouch
   ];
 
   home.sessionVariables = {
@@ -49,11 +52,99 @@
 
     yazi = {
       enable = true;
-      plugins = with pkgs.yaziPlugins; {
-        full-border = full-border;
-        chmod = chmod;
-        starship = starship;
-        git = git;
+      plugins = {
+        inherit (pkgs.yaziPlugins)
+          full-border
+          chmod
+          starship
+          glow
+          git
+          duckdb
+          ouch
+          ;
+      };
+      settings = {
+        plugin = {
+          prepend_previewers =
+            map
+              (type: {
+                run = "ouch";
+                mime = "application/${type}";
+              })
+              [
+                "*zip"
+                "x-tar"
+                "x-bzip2"
+                "x-7z-compressed"
+                "x-rar"
+                "x-xz"
+                "xz"
+              ]
+            ++
+              map
+                (type: {
+                  run = "duckdb";
+                  name = "*.${type}";
+                })
+                [
+                  "csv"
+                  "tsv"
+                  "parquet"
+                  "xlsx"
+                  "db"
+                  "duckdb"
+                ];
+        };
+
+        prepend_preloaders =
+          map
+            (type: {
+              run = "duckdb";
+              name = "*.${type}";
+              multi = false;
+            })
+            [
+              "csv"
+              "tsv"
+              "json"
+              "parquet"
+              "txt"
+              "xlsx"
+            ];
+
+      };
+      keymap = {
+        mgr = {
+          prepend_keymap = [
+            {
+              on = "H";
+              run = "plugin duckdb -1";
+              desc = "scroll one column to the left";
+            }
+            {
+              on = "L";
+              run = "plugin duckdb +1";
+              desc = "scroll one column to the right";
+            }
+            {
+              on = [
+                "g"
+                "o"
+              ];
+              run = "plugin duckdb -open";
+              desc = "open with duckdb";
+            }
+            {
+              on = [
+                "g"
+                "u"
+              ];
+              run = "plugin duckdb -ui";
+              desc = "open with duckdb ui";
+            }
+          ];
+        };
+
       };
       initLua = ''
         require("full-border"):setup {
@@ -61,6 +152,7 @@
         }
         require("starship"):setup()
         require("git"):setup()
+        require("duckdb"):setup()
       '';
     };
 
@@ -280,7 +372,7 @@
         language-server = {
 
           basedpyright = {
-            # command = "${pkgs.basedpyright}/bin/basedpyright-langserver"; # TODO: uncomment once >=1.31.6
+            # command = "${pkgs.basedpyright}/bin/basedpyright-langserver"; # TODO: uncomment once builds
             command = "basedpyright-langserver";
             config = {
               lint = true;
