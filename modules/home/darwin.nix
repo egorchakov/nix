@@ -89,17 +89,27 @@
           ];
         };
         workspace-to-monitor-force-assignment = {
-          "1" = "main";
-          "2" = "main";
-          "3" = "main";
-          "4" = "main";
-          "5" = "main";
-          "6" = "main";
-          "7" = "secondary";
-          "8" = "secondary";
-          "9" = "secondary";
-          "10" = "secondary";
+          "1" = [ "^DELL U2422H \\(2\\)$" ];
+          "2" = [ "^DELL U2422H \\(2\\)$" ];
+          "3" = [ "^DELL U2422H \\(2\\)$" ];
+          "4" = [ "^DELL U2422H \\(1\\)$" ];
+          "5" = [ "^DELL U2422H \\(1\\)$" ];
+          "6" = [ "^DELL U2422H \\(1\\)$" ];
+          "7" = [ "^DELL U2422H \\(1\\)$" ];
+          "8" = [ "built-in" ];
+          "9" = [ "built-in" ];
+          "10" = [ "built-in" ];
         };
+        on-window-detected = [
+          {
+            "if".app-id = "com.tinyspeck.slackmacgap";
+            run = [ "move-node-to-workspace 9" ];
+          }
+          {
+            "if".app-id = "com.spotify.client";
+            run = [ "move-node-to-workspace 10" ];
+          }
+        ];
       };
     };
 
