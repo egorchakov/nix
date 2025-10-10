@@ -436,13 +436,20 @@
 
   stylix = {
     enable = true;
-    autoEnable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/evenok-dark.yaml";
     fonts = {
       monospace = {
         package = pkgs.iosevka;
         name = "Iosevka";
       };
+    };
+    autoEnable = false;
+    targets = {
+      helix.enable = true;
+      nushell.enable = true;
+      starship.enable = true;
+      yazi.enable = true;
+      zellij.enable = true;
     };
   };
 }
