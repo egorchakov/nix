@@ -4,19 +4,21 @@
   ...
 }:
 {
-  home.stateVersion = "25.05";
-  home.packages = with pkgs; [
-    tig
-    just
-    dust
-    iosevka
-    duckdb
-    glow
-    ouch
-  ];
+  home = {
+    stateVersion = "25.05";
 
-  home.sessionVariables = {
-    EDITOR = "hx";
+    packages = with pkgs; [
+      tig
+      just
+      dust
+      iosevka
+      duckdb
+      ouch
+    ];
+
+    sessionVariables = {
+      EDITOR = "hx";
+    };
   };
 
   programs = {
@@ -57,7 +59,6 @@
           full-border
           chmod
           starship
-          glow
           git
           duckdb
           ouch
@@ -345,6 +346,10 @@
             name = "nix";
             auto-format = true;
             formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+            language-servers = [
+              "nixd"
+              "statix"
+            ];
           }
           {
             name = "python";
@@ -399,6 +404,27 @@
           nixd = {
             command = "${pkgs.nixd}/bin/nixd";
             args = [ "--semantic-tokens=true" ];
+          };
+
+          statix = {
+            command = "${pkgs.efm-langserver}/bin/efm-langserver";
+            config = {
+              languages = {
+                nix = [
+                  {
+                    lintCommand = "${pkgs.statix}/bin/statix check --stdin --format=errfmt";
+                    lintStdIn = true;
+                    lintIgnoreExitCode = true;
+                    lintFormats = [ "<stdin>>%l:%c:%t:%n:%m" ];
+                    rootMarkers = [
+                      "flake.nix"
+                      "shell.nix"
+                      "default.nix"
+                    ];
+                  }
+                ];
+              };
+            };
           };
         };
       };

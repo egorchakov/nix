@@ -7,9 +7,11 @@
 {
   nix.settings.experimental-features = "nix-command flakes";
   nixpkgs.config.allowUnfree = true;
-  system.primaryUser = user;
-  system.configurationRevision = self.rev or self.dirtyRev or null;
-  system.stateVersion = 6;
+  system = {
+    primaryUser = user;
+    configurationRevision = self.rev or self.dirtyRev or null;
+    stateVersion = 6;
+  };
 
   environment.shells = with pkgs; [
     bashInteractive

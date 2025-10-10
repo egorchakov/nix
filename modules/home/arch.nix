@@ -16,7 +16,7 @@
   ];
 
   nixGL = {
-    packages = nixgl.packages;
+    inherit (nixgl) packages;
     defaultWrapper = "mesa";
     installScripts = [ "mesa" ];
   };
