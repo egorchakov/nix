@@ -4,6 +4,7 @@
   ...
 }:
 {
+  news.display = "silent";
   home = {
     stateVersion = "25.05";
 
