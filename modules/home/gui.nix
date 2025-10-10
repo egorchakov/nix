@@ -16,8 +16,6 @@
         window-inherit-working-directory = true;
         window-decoration = false;
         font-size = 20;
-        font-family = "Iosevka";
-        theme = "Ultra Dark";
         focus-follows-mouse = true;
       };
     };

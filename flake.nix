@@ -11,6 +11,10 @@
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nixgl.url = "github:nix-community/nixGL";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,6 +24,7 @@
       home-manager,
       nix-homebrew,
       nixgl,
+      stylix,
       ...
     }:
     let
@@ -38,19 +43,10 @@
             nix-homebrew.darwinModules.nix-homebrew
             {
               nix-homebrew = {
+                inherit user;
                 enable = true;
                 enableRosetta = true;
-                user = user;
                 autoMigrate = true;
-              };
-            }
-
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users."${user}" = ./modules/home/darwin.nix;
               };
             }
           ];
@@ -70,6 +66,7 @@
             inherit pkgs;
             extraSpecialArgs = { inherit user; };
             modules = [
+              stylix.homeModules.stylix
               {
                 home.username = user;
                 home.homeDirectory = "/Users/${user}";
@@ -89,7 +86,10 @@
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             extraSpecialArgs = { inherit user nixgl; };
-            modules = [ ./modules/home/arch.nix ];
+            modules = [
+              stylix.homeModules.stylix
+              ./modules/home/arch.nix
+            ];
           };
       }
       // nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
@@ -101,6 +101,7 @@
           inherit pkgs;
           extraSpecialArgs = { inherit user; };
           modules = [
+            stylix.homeModules.stylix
             ./modules/home/shared.nix
             ./modules/home/linux.nix
           ];

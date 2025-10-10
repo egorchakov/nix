@@ -11,7 +11,6 @@
       tig
       just
       dust
-      iosevka
       duckdb
       ouch
     ];
@@ -239,20 +238,7 @@
     helix = {
       enable = true;
       defaultEditor = true;
-      themes = {
-        tokyonight_black = {
-          inherits = "tokyonight";
-          "ui.background" = {
-            fg = "fg";
-          };
-          "ui.text" = {
-            fg = "fg";
-          };
-        };
-      };
-
       settings = {
-        theme = "tokyonight_black";
         editor = {
           auto-save = true;
           true-color = true;
@@ -443,6 +429,18 @@
         bind main R !git rebase -i %(commit)^
         bind diff R !git rebase -i %(commit)^
       '';
+    };
+  };
+
+  stylix = {
+    enable = true;
+    autoEnable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/evenok-dark.yaml";
+    fonts = {
+      monospace = {
+        package = pkgs.iosevka;
+        name = "Iosevka";
+      };
     };
   };
 }
