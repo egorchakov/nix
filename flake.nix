@@ -66,7 +66,6 @@
             inherit pkgs;
             extraSpecialArgs = { inherit user; };
             modules = [
-              stylix.homeModules.stylix
               {
                 home.username = user;
                 home.homeDirectory = "/Users/${user}";
@@ -85,11 +84,8 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user nixgl; };
-            modules = [
-              stylix.homeModules.stylix
-              ./modules/home/arch.nix
-            ];
+            extraSpecialArgs = { inherit user inputs; };
+            modules = [ ./modules/home/arch.nix ];
           };
       }
       // nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
@@ -99,9 +95,8 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit user; };
+          extraSpecialArgs = { inherit user inputs; };
           modules = [
-            stylix.homeModules.stylix
             ./modules/home/shared.nix
             ./modules/home/linux.nix
           ];

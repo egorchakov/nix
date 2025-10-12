@@ -1,9 +1,14 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }:
 {
+  imports = [
+    inputs.stylix.homeModules.stylix
+  ];
+
   news.display = "silent";
   home = {
     stateVersion = "25.05";

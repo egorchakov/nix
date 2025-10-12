@@ -1,7 +1,7 @@
 {
-  pkgs,
   config,
-  nixgl,
+  inputs,
+  pkgs,
   ...
 }:
 {
@@ -16,7 +16,7 @@
   ];
 
   nixGL = {
-    inherit (nixgl) packages;
+    inherit (inputs.nixgl) packages;
     defaultWrapper = "mesa";
     installScripts = [ "mesa" ];
   };
