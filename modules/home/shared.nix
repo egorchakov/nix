@@ -68,6 +68,7 @@
           git
           duckdb
           ouch
+          rsync
           ;
       };
       settings = {
@@ -123,6 +124,11 @@
       keymap = {
         mgr = {
           prepend_keymap = [
+            {
+              on = "R";
+              run = "plugin rsync";
+              desc = "rsync";
+            }
             {
               on = "H";
               run = "plugin duckdb -1";
