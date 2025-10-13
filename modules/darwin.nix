@@ -2,9 +2,14 @@
   self,
   pkgs,
   user,
+  nix-homebrew,
   ...
 }:
 {
+  imports = [
+    nix-homebrew.darwinModules.nix-homebrew
+  ];
+
   nix.settings.experimental-features = "nix-command flakes";
   nixpkgs.config.allowUnfree = true;
   system = {
@@ -26,6 +31,13 @@
   users.users."${user}" = {
     home = "/Users/${user}";
     shell = pkgs.nushell;
+  };
+
+  nix-homebrew = {
+    inherit user;
+    enable = true;
+    enableRosetta = true;
+    autoMigrate = true;
   };
 
   homebrew = {

@@ -37,19 +37,7 @@
           specialArgs = inputs // {
             inherit user;
           };
-          modules = [
-            ./modules/darwin.nix
-
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                inherit user;
-                enable = true;
-                enableRosetta = true;
-                autoMigrate = true;
-              };
-            }
-          ];
+          modules = [ ./modules/darwin.nix ];
         };
       };
 
@@ -64,14 +52,8 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user; };
-            modules = [
-              {
-                home.username = user;
-                home.homeDirectory = "/Users/${user}";
-              }
-              ./modules/home/darwin.nix
-            ];
+            extraSpecialArgs = { inherit user stylix; };
+            modules = [ ./modules/home/darwin.nix ];
           };
 
         "${user}@arch" =
@@ -84,7 +66,7 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user inputs; };
+            extraSpecialArgs = { inherit user stylix nixgl; };
             modules = [ ./modules/home/arch.nix ];
           };
       }
@@ -95,7 +77,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit user inputs; };
+          extraSpecialArgs = { inherit user stylix; };
           modules = [
             ./modules/home/shared.nix
             ./modules/home/linux.nix

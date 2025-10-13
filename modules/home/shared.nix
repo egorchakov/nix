@@ -1,12 +1,12 @@
 {
   config,
-  inputs,
   pkgs,
+  stylix,
   ...
 }:
 {
   imports = [
-    inputs.stylix.homeModules.stylix
+    stylix.homeModules.stylix
   ];
 
   news.display = "silent";
@@ -376,8 +376,7 @@
         language-server = {
 
           basedpyright = {
-            # command = "${pkgs.basedpyright}/bin/basedpyright-langserver"; # TODO: uncomment once builds
-            command = "basedpyright-langserver";
+            command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
             config = {
               lint = true;
             };

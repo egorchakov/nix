@@ -1,13 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   imports = [
     ./shared.nix
     ./gui.nix
   ];
 
-  home.packages = with pkgs; [
-    whatsapp-for-mac
-  ];
+  home = {
+    username = user;
+    homeDirectory = "/Users/${user}";
+    packages = with pkgs; [
+      whatsapp-for-mac
+    ];
+  };
 
   programs = {
     aerospace = {
