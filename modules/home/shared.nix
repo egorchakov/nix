@@ -452,6 +452,9 @@
         package = pkgs.iosevka;
         name = "Iosevka";
       };
+      sizes = {
+        terminal = 20;
+      };
     };
     autoEnable = false;
     targets = {

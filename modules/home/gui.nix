@@ -15,7 +15,6 @@
         command = "zsh -l -c nu";
         window-inherit-working-directory = true;
         window-decoration = false;
-        font-size = 20;
         focus-follows-mouse = true;
       };
     };
