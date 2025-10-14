@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    iosevka
     google-chrome
     slack
     telegram-desktop

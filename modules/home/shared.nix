@@ -40,6 +40,7 @@
     nix-your-shell.enable = true;
     carapace.enable = true;
     nh.enable = true;
+    codex.enable = true;
 
     direnv = {
       enable = true;
@@ -458,6 +459,8 @@
     };
     autoEnable = false;
     targets = {
+      font-packages.enable = true;
+      fontconfig.enable = true;
       helix.enable = true;
       nushell.enable = true;
       starship.enable = true;

@@ -26,6 +26,7 @@
 
   environment.systemPackages = with pkgs; [
     nextdns
+    chatgpt
   ];
 
   users.users."${user}" = {
