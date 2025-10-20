@@ -22,7 +22,6 @@
       darwin,
       nixpkgs,
       home-manager,
-      nix-homebrew,
       nixgl,
       stylix,
       ...

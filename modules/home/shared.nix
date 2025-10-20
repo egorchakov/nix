@@ -50,13 +50,15 @@
 
     git = {
       enable = true;
-      userEmail = "evgorchakov@gmail.com";
-      userName = "Evgenii Gorchakov";
-      delta.enable = true;
-      lfs.enable = true;
-      extraConfig = {
+      settings = {
+        user = {
+          email = "evgorchakov@gmail.com";
+          name = "Evgenii Gorchakov";
+        };
         push.autoSetupRemote = true;
       };
+
+      lfs.enable = true;
     };
 
     yazi = {

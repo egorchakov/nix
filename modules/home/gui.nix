@@ -10,11 +10,11 @@
     ghostty = {
       enable = true;
       settings = {
-        shell-integration = "none";
-        command = "zsh -l -c nu";
+        command = "bash -l -c nu";
         window-inherit-working-directory = true;
         window-decoration = false;
         focus-follows-mouse = true;
+        shell-integration-features = "sudo,ssh-env,ssh-terminfo";
       };
     };
   };
