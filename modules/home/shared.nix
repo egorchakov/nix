@@ -374,10 +374,13 @@
               args = [ "-" ];
             };
           }
+          {
+            name = "just";
+            auto-format = true;
+          }
         ];
 
         language-server = {
-
           basedpyright = {
             command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
             config = {
@@ -433,6 +436,7 @@
         tombi
         yaml-language-server
         vscode-json-languageserver
+        just-lsp
       ];
     };
   };
