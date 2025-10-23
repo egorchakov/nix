@@ -50,5 +50,10 @@
       "uhk-agent"
       "spotify"
     ];
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+      upgrade = true;
+    };
   };
 }
