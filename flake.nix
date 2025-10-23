@@ -1,33 +1,49 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/?ref=nixpkgs-unstable&shallow=1";
+    };
     darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    nixgl.url = "github:nix-community/nixGL";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew?shallow=1";
+    nixgl = {
+      url = "github:nix-community/nixGL?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
-      url = "github:nix-community/stylix";
+      url = "github:nix-community/stylix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    systems.url = "github:nix-systems/default?shallow=1";
   };
 
   outputs =
     inputs@{
+      self,
       darwin,
       nixpkgs,
       home-manager,
       nixgl,
       stylix,
+      treefmt-nix,
+      systems,
       ...
     }:
     let
       user = "evgenii";
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
       darwinConfigurations = {
@@ -83,5 +99,10 @@
           ];
         }
       );
+
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+      });
     };
 }

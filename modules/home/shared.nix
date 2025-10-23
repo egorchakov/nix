@@ -5,9 +5,7 @@
   ...
 }:
 {
-  imports = [
-    stylix.homeModules.stylix
-  ];
+  imports = [ stylix.homeModules.stylix ];
 
   news.display = "silent";
   home = {
@@ -233,18 +231,14 @@
           "shared_except \"locked\" \"resize\"" = {
             bind = {
               _args = [ "Ctrl z" ];
-              _children = [
-                { SwitchToMode._args = [ "resize" ]; }
-              ];
+              _children = [ { SwitchToMode._args = [ "resize" ]; } ];
             };
           };
 
           "shared_except \"locked\" \"move\"" = {
             bind = {
               _args = [ "Ctrl e" ];
-              _children = [
-                { SwitchToMode._args = [ "move" ]; }
-              ];
+              _children = [ { SwitchToMode._args = [ "move" ]; } ];
             };
           };
         };
@@ -347,7 +341,13 @@
           {
             name = "nix";
             auto-format = true;
-            formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+            formatter = {
+              command = "${pkgs.nixfmt}/bin/nixfmt";
+              args = [
+                "--verify"
+                "--strict"
+              ];
+            };
             language-servers = [
               "nixd"
               "statix"

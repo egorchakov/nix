@@ -6,9 +6,7 @@
   ...
 }:
 {
-  imports = [
-    nix-homebrew.darwinModules.nix-homebrew
-  ];
+  imports = [ nix-homebrew.darwinModules.nix-homebrew ];
 
   nix.settings.experimental-features = "nix-command flakes";
   nixpkgs.config.allowUnfree = true;

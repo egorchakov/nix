@@ -11,9 +11,7 @@
     ./gui.nix
   ];
 
-  home.packages = with pkgs; [
-    bluetui
-  ];
+  home.packages = with pkgs; [ bluetui ];
 
   nixGL = {
     inherit (nixgl) packages;
