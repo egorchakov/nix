@@ -8,7 +8,12 @@
   home = {
     username = user;
     homeDirectory = "/Users/${user}";
-    packages = with pkgs; [ whatsapp-for-mac ];
+    packages = with pkgs; [
+      whatsapp-for-mac
+      google-chrome
+      slack
+      telegram-desktop
+    ];
   };
 
   programs = {

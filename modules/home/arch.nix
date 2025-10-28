@@ -11,7 +11,14 @@
     ./gui.nix
   ];
 
-  home.packages = with pkgs; [ bluetui ];
+  home.packages = with pkgs; [
+    bluetui
+    pavucontrol
+    signal-desktop
+    (config.lib.nixGL.wrap google-chrome)
+    (config.lib.nixGL.wrap slack)
+    (config.lib.nixGL.wrap telegram-desktop)
+  ];
 
   nixGL = {
     inherit (nixgl) packages;

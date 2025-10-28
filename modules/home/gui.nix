@@ -1,11 +1,4 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    google-chrome
-    slack
-    telegram-desktop
-  ];
-
+_: {
   programs = {
     ghostty = {
       enable = true;
