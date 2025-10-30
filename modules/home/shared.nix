@@ -216,10 +216,8 @@
     zellij = {
       enable = true;
       settings = {
-        theme = "dracula";
         default_shell = "nu";
         simplified_ui = true;
-        default_layout = "compact";
         show_startup_tips = false;
         keybinds = {
           unbind = [
@@ -239,6 +237,13 @@
             bind = {
               _args = [ "Ctrl e" ];
               _children = [ { SwitchToMode._args = [ "move" ]; } ];
+            };
+          };
+
+          "shared_except \"locked\" \"session\"" = {
+            bind = {
+              _args = [ "Ctrl s" ];
+              _children = [ { SwitchToMode._args = [ "session" ]; } ];
             };
           };
         };
