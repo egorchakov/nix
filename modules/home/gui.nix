@@ -1,9 +1,10 @@
-_: {
+{ pkgs, ... }:
+{
   programs = {
     ghostty = {
       enable = true;
       settings = {
-        command = "bash -l -c nu";
+        command = "${pkgs.bashInteractive}/bin/bash -l -c nu";
         window-inherit-working-directory = true;
         window-decoration = false;
         focus-follows-mouse = true;
