@@ -465,7 +465,7 @@
         name = "Iosevka";
       };
       sizes = {
-        terminal = 20;
+        terminal = 16;
       };
     };
     autoEnable = false;
