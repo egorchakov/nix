@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  nixgl,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   imports = [
     ./shared.nix
@@ -11,20 +6,22 @@
     ./gui.nix
   ];
 
+  targets.genericLinux = {
+    enable = true;
+    gpu.enable = true;
+  };
+
   home.packages = with pkgs; [
     bluetui
     pavucontrol
     signal-desktop
-    (config.lib.nixGL.wrap google-chrome)
-    (config.lib.nixGL.wrap slack)
-    (config.lib.nixGL.wrap telegram-desktop)
+    google-chrome
+    slack
+    telegram-desktop
   ];
 
-  nixGL = {
-    inherit (nixgl) packages;
-    defaultWrapper = "mesa";
-    installScripts = [ "mesa" ];
+  stylix.targets = {
+    gtk.enable = true;
+    tofi.enable = true;
   };
-
-  programs.ghostty.package = config.lib.nixGL.wrap pkgs.ghostty;
 }

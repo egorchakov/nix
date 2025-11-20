@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/?ref=nixpkgs-unstable&shallow=1";
+      url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
     };
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
@@ -12,10 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew?shallow=1";
-    nixgl = {
-      url = "github:nix-community/nixGL?shallow=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     stylix = {
       url = "github:nix-community/stylix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +30,6 @@
       darwin,
       nixpkgs,
       home-manager,
-      nixgl,
       stylix,
       treefmt-nix,
       systems,
@@ -81,7 +76,7 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user stylix nixgl; };
+            extraSpecialArgs = { inherit user stylix; };
             modules = [ ./modules/home/arch.nix ];
           };
       }
