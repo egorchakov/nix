@@ -25,6 +25,7 @@
   environment.systemPackages = with pkgs; [
     nextdns
     chatgpt
+    bitwarden-desktop
   ];
 
   users.users."${user}" = {

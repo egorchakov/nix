@@ -387,14 +387,14 @@
 
         language-server = {
           basedpyright = {
-            command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
+            command = "basedpyright-langserver";
             config = {
               lint = true;
             };
           };
 
           ty = {
-            command = "${pkgs.ty}/bin/ty";
+            command = "ty";
             args = [ "server" ];
             config = {
               experimental = {
@@ -405,7 +405,7 @@
           };
 
           ruff = {
-            command = "${pkgs.ruff}/bin/ruff";
+            command = "ruff";
             args = [ "server" ];
             config.settings.format.preview = true;
           };
@@ -442,6 +442,9 @@
         yaml-language-server
         vscode-json-languageserver
         just-lsp
+        basedpyright
+        ruff
+        ty
       ];
     };
   };

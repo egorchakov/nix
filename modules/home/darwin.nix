@@ -9,7 +9,7 @@
     username = user;
     homeDirectory = "/Users/${user}";
     packages = with pkgs; [
-      whatsapp-for-mac
+      # whatsapp-for-mac
       google-chrome
       slack
       telegram-desktop
