@@ -470,7 +470,7 @@
         name = "Iosevka";
       };
       sizes = {
-        terminal = 16;
+        terminal = 14;
       };
     };
     autoEnable = false;

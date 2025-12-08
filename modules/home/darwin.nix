@@ -20,7 +20,7 @@
     aerospace = {
       enable = true;
       launchd.enable = true;
-      userSettings = {
+      settings = {
         mode.main.binding = {
           alt-enter = "exec-and-forget open -n -a ghostty";
           alt-o = "exec-and-forget open -n -b com.google.Chrome";
