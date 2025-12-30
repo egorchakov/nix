@@ -365,7 +365,6 @@
             language-servers = [
               "ruff"
               "ty"
-              "basedpyright"
             ];
           }
           {
@@ -387,13 +386,6 @@
         ];
 
         language-server = {
-          basedpyright = {
-            command = "basedpyright-langserver";
-            config = {
-              lint = true;
-            };
-          };
-
           ty = {
             command = "ty";
             args = [ "server" ];
@@ -443,7 +435,6 @@
         yaml-language-server
         vscode-json-languageserver
         just-lsp
-        basedpyright
         ruff
         ty
       ];
