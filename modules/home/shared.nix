@@ -18,6 +18,7 @@
       dust
       duckdb
       ouch
+      delta
     ];
 
     sessionVariables = {
@@ -192,7 +193,6 @@
       enable = true;
       shellAliases = {
         zl = "zellij";
-        f = "yazi";
       };
       environmentVariables = config.home.sessionVariables;
       settings = {
@@ -211,6 +211,16 @@
         use custom-completions/ssh/ssh-completions.nu *
         use custom-completions/uv/uv-completions.nu *
         use custom-completions/zellij/zellij-completions.nu *
+
+        def --env f [...args] {
+        	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+        	^yazi ...$args --cwd-file $tmp
+        	let cwd = (open $tmp)
+        	if $cwd != "" and $cwd != $env.PWD {
+        		cd $cwd
+        	}
+        	rm -fp $tmp
+        }
       '';
     };
 

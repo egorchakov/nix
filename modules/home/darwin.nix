@@ -13,6 +13,7 @@
       google-chrome
       slack
       telegram-desktop
+      rerun
     ];
   };
 
