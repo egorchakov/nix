@@ -447,6 +447,7 @@
         just-lsp
         ruff
         ty
+        protols
       ];
     };
   };
