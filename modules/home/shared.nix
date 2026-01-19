@@ -41,6 +41,8 @@
     carapace.enable = true;
     nh.enable = true;
     codex.enable = true;
+    television.enable = true;
+    fd.enable = true;
 
     direnv = {
       enable = true;
