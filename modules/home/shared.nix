@@ -395,6 +395,10 @@
             name = "just";
             auto-format = true;
           }
+          {
+            name = "cpp";
+            auto-format = true;
+          }
         ];
 
         language-server = {
