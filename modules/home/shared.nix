@@ -399,6 +399,10 @@
             name = "cpp";
             auto-format = true;
           }
+          {
+            name = "cmake";
+            auto-format = true;
+          }
         ];
 
         language-server = {
@@ -417,6 +421,11 @@
             command = "ruff";
             args = [ "server" ];
             config.settings.format.preview = true;
+          };
+
+          clangd = {
+            command = "${pkgs.clang-tools}/bin/clangd";
+            args = [ "--clang-tidy" ];
           };
 
           nixd = {
@@ -454,6 +463,7 @@
         ruff
         ty
         protols
+        neocmakelsp
       ];
     };
   };
