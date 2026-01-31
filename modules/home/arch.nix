@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./shared.nix
@@ -18,6 +18,7 @@
     google-chrome
     slack
     telegram-desktop
+    impala
   ];
 
   stylix.targets = {
