@@ -51,6 +51,7 @@
       "uhk-agent"
       "spotify"
     ];
+    brews = [ "TeddyHuang-00/app/sshping" ];
     onActivation = {
       autoUpdate = true;
       cleanup = "uninstall";
