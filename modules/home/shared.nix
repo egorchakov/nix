@@ -408,6 +408,15 @@
             name = "cmake";
             auto-format = true;
           }
+          {
+            name = "nu";
+            auto-format = true;
+            language-servers = [ "nu-lsp" ];
+            formatter = {
+              command = "${pkgs.nufmt}/bin/nufmt";
+              args = [ "--stdin" ];
+            };
+          }
         ];
 
         language-server = {
