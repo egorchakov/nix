@@ -200,6 +200,11 @@
       settings = {
         show_banner = false;
       };
+      plugins = with pkgs.nushellPlugins; [
+        skim
+        polars
+        highlight
+      ];
       extraConfig = ''
         const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${pkgs.nu_scripts}/share/nu_scripts']
 
