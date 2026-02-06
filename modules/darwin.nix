@@ -8,7 +8,11 @@
 {
   imports = [ nix-homebrew.darwinModules.nix-homebrew ];
 
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    trusted-users = [ user ];
+  };
+
   nixpkgs.config.allowUnfree = true;
   system = {
     primaryUser = user;

@@ -2,6 +2,7 @@
   config,
   pkgs,
   stylix,
+  llm-agents,
   ...
 }:
 {
@@ -40,9 +41,13 @@
     nix-your-shell.enable = true;
     carapace.enable = true;
     nh.enable = true;
-    codex.enable = true;
     television.enable = true;
     fd.enable = true;
+
+    codex = {
+      enable = true;
+      package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex;
+    };
 
     direnv = {
       enable = true;
