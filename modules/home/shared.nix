@@ -70,6 +70,7 @@
 
     yazi = {
       enable = true;
+      shellWrapperName = "f";
       plugins = {
         inherit (pkgs.yaziPlugins)
           full-border
@@ -223,16 +224,6 @@
         use custom-completions/ssh/ssh-completions.nu *
         use custom-completions/uv/uv-completions.nu *
         use custom-completions/zellij/zellij-completions.nu *
-
-        def --env f [...args] {
-        	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-        	^yazi ...$args --cwd-file $tmp
-        	let cwd = (open $tmp)
-        	if $cwd != "" and $cwd != $env.PWD {
-        		cd $cwd
-        	}
-        	rm -fp $tmp
-        }
       '';
     };
 
