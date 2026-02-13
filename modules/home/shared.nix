@@ -272,7 +272,11 @@
           auto-save = true;
           true-color = true;
           idle-timeout = 0;
+          auto-completion = true;
+          path-completion = true;
+          completion-timeout = 5;
           completion-trigger-len = 1;
+          completion-replace = true;
 
           lsp = {
             display-messages = true;
