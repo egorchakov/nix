@@ -3,6 +3,9 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
     };
+    nixpkgs-master = {
+      url = "github:nixos/nixpkgs/master?shallow=1";
+    };
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +46,7 @@
       self,
       darwin,
       nixpkgs,
+      nixpkgs-master,
       home-manager,
       llm-agents,
       stylix,
@@ -52,6 +56,16 @@
     }:
     let
       user = "evgenii";
+      mkPkgs =
+        {
+          system,
+          allowUnfree ? false,
+        }:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = allowUnfree;
+          overlays = [ (_: _: { inherit (nixpkgs-master.legacyPackages.${system}) skim; }) ];
+        };
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
@@ -70,9 +84,9 @@
         "${user}@mbp" =
           let
             system = "aarch64-darwin";
-            pkgs = import nixpkgs {
+            pkgs = mkPkgs {
               inherit system;
-              config.allowUnfree = true;
+              allowUnfree = true;
             };
           in
           home-manager.lib.homeManagerConfiguration {
@@ -84,9 +98,9 @@
         "${user}@arch" =
           let
             system = "x86_64-linux";
-            pkgs = import nixpkgs {
+            pkgs = mkPkgs {
               inherit system;
-              config.allowUnfree = true;
+              allowUnfree = true;
             };
           in
           home-manager.lib.homeManagerConfiguration {
@@ -98,7 +112,7 @@
       // nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
         system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = mkPkgs { inherit system; };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
