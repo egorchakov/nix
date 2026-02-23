@@ -422,6 +422,10 @@
           {
             name = "cmake";
             auto-format = true;
+            formatter = {
+              command = "${pkgs.gersemi}/bin/gersemi";
+              args = [ "-" ];
+            };
           }
           {
             name = "nu";
