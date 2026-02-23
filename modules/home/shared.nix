@@ -47,6 +47,21 @@
     codex = {
       enable = true;
       package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex;
+      settings = {
+        model = "gpt-5.3-codex";
+        model_reasoning_effort = "xhigh";
+        personality = "pragmatic";
+        approval_policy = "never";
+        sandbox_mode = "danger-full-access";
+        web_search = "live";
+        features = {
+          apply_patch_freeform = true;
+          multi_agent = true;
+          remote_models = true;
+          shell_snapshot = true;
+          unified_exec = true;
+        };
+      };
     };
 
     direnv = {
