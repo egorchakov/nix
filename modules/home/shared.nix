@@ -439,6 +439,13 @@
               args = [ "--stdin" ];
             };
           }
+          {
+            name = "starlark";
+            auto-format = true;
+            formatter = {
+              command = "${pkgs.buildifier}/bin/buildifier";
+            };
+          }
         ];
 
         language-server = {
@@ -500,6 +507,7 @@
         ty
         protols
         neocmakelsp
+        starpls
       ];
     };
   };
