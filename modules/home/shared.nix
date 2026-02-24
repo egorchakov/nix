@@ -359,6 +359,9 @@
               "collapse_selection"
               "keep_primary_selection"
             ];
+            space = {
+              i = ":toggle lsp.display-inlay-hints";
+            };
           };
 
           select = {
