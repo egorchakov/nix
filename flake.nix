@@ -3,9 +3,6 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
     };
-    nixpkgs-master = {
-      url = "github:nixos/nixpkgs/master?shallow=1";
-    };
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +43,6 @@
       self,
       darwin,
       nixpkgs,
-      nixpkgs-master,
       home-manager,
       llm-agents,
       stylix,
@@ -64,7 +60,6 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = allowUnfree;
-          overlays = [ (_: _: { inherit (nixpkgs-master.legacyPackages.${system}) skim; }) ];
         };
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
