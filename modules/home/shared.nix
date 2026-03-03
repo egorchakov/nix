@@ -240,8 +240,6 @@
         use custom-completions/ssh/ssh-completions.nu *
         use custom-completions/uv/uv-completions.nu *
         use custom-completions/zellij/zellij-completions.nu *
-
-        def --wrapped bazel [...rest] { ^bazel ...$rest }
       '';
     };
 
@@ -442,13 +440,6 @@
               args = [ "--stdin" ];
             };
           }
-          {
-            name = "starlark";
-            auto-format = true;
-            formatter = {
-              command = "${pkgs.buildifier}/bin/buildifier";
-            };
-          }
         ];
 
         language-server = {
@@ -508,9 +499,7 @@
         just-lsp
         ruff
         ty
-        protols
         neocmakelsp
-        starpls
         rust-analyzer
         clippy
         rustfmt
