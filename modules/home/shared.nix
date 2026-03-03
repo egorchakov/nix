@@ -20,6 +20,7 @@
       duckdb
       ouch
       delta
+      rsync
     ];
 
     sessionVariables = {

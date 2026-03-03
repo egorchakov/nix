@@ -54,6 +54,7 @@
       "signal"
       "uhk-agent"
       "spotify"
+      "display-pilot"
     ];
     brews = [ "TeddyHuang-00/app/sshping" ];
     onActivation = {

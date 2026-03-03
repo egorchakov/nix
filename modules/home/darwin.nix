@@ -99,38 +99,35 @@
         workspace-to-monitor-force-assignment = {
           "1" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(2\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
           "2" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(2\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
           "3" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(2\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
           "4" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(1\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
           "5" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(1\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
           "6" = [
             "^PHL 346B1C$"
-            "^DELL U2422H \\(1\\)$"
+            "^BenQ RD320U$"
             "built-in"
           ];
-          "7" = [
-            "^DELL U2422H \\(1\\)$"
-            "built-in"
-          ];
+          "7" = [ "built-in" ];
           "8" = [ "built-in" ];
           "9" = [ "built-in" ];
           "10" = [ "built-in" ];
