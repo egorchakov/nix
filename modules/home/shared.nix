@@ -511,6 +511,9 @@
         protols
         neocmakelsp
         starpls
+        rust-analyzer
+        clippy
+        rustfmt
       ];
     };
   };
