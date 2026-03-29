@@ -234,6 +234,8 @@
       enable = true;
       shellAliases = {
         zl = "zellij";
+        gi = "gst-inspect-1.0";
+        gl = "gst-launch-1.0";
       };
       environmentVariables = config.home.sessionVariables;
       settings = {
