@@ -10,7 +10,7 @@
 
   news.display = "silent";
   home = {
-    stateVersion = "25.05";
+    stateVersion = "26.05";
 
     packages = with pkgs; [
       git
@@ -546,7 +546,7 @@
         name = "Iosevka";
       };
       sizes = {
-        terminal = 14;
+        terminal = 16;
       };
     };
     autoEnable = false;
