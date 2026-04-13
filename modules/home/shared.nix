@@ -17,7 +17,6 @@
       tig
       just
       dust
-      duckdb
       ouch
       delta
       rsync
