@@ -438,18 +438,6 @@
             auto-format = true;
           }
           {
-            name = "cpp";
-            auto-format = true;
-          }
-          {
-            name = "cmake";
-            auto-format = true;
-            formatter = {
-              command = "${pkgs.gersemi}/bin/gersemi";
-              args = [ "-" ];
-            };
-          }
-          {
             name = "nu";
             auto-format = true;
             language-servers = [ "nu-lsp" ];
@@ -461,6 +449,13 @@
         ];
 
         language-server = {
+          rust-analyzer = {
+            config = {
+              cargo.allFeatures = true;
+              check.command = "clippy";
+            };
+          };
+
           ty = {
             command = "ty";
             args = [ "server" ];
@@ -517,10 +512,9 @@
         just-lsp
         ruff
         ty
-        neocmakelsp
         rust-analyzer
-        clippy
         rustfmt
+        clippy
       ];
     };
   };
