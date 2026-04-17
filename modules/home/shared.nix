@@ -46,7 +46,7 @@
 
     codex = {
       enable = true;
-      # package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex;
+      package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex;
       settings = {
         model = "gpt-5.4";
         model_reasoning_effort = "xhigh";
