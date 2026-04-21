@@ -51,6 +51,7 @@
         model = "gpt-5.4";
         model_reasoning_effort = "xhigh";
         plan_mode_reasoning_effort = "xhigh";
+        service_tier = "fast";
         personality = "pragmatic";
         approval_policy = "never";
         sandbox_mode = "danger-full-access";
