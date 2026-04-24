@@ -233,6 +233,7 @@
     nushell = {
       enable = true;
       shellAliases = {
+        cx = "codex";
         zl = "zellij";
         gi = "gst-inspect-1.0";
         gl = "gst-launch-1.0";
