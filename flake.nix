@@ -1,8 +1,7 @@
 {
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master?shallow=1";
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,6 +59,11 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = allowUnfree;
+          overlays = [
+            (_: prev: {
+              inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}) direnv;
+            })
+          ];
         };
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
