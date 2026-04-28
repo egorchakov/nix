@@ -353,6 +353,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1777370153,
+        "narHash": "sha256-ikcvVtyHJBOCGL4nB+iX7TwK4rRsSUYMtnz67ZOK4fY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "37a293265f4c9ee4cbf879ffbe6d1691fd2d9e8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -385,6 +401,7 @@
         "llm-agents": "llm-agents",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
         "stylix": "stylix",
         "systems": "systems_3",
         "treefmt-nix": "treefmt-nix"
