@@ -99,11 +99,13 @@
         workspace-to-monitor-force-assignment = {
           "1" = [
             "^PHL 346B1C$"
+            "^DELL U2422H$"
             "^BenQ RD320U$"
             "built-in"
           ];
           "2" = [
             "^PHL 346B1C$"
+            "^DELL U2422H$"
             "^BenQ RD320U$"
             "built-in"
           ];
