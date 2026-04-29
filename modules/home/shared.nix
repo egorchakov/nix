@@ -13,12 +13,10 @@
     stateVersion = "26.05";
 
     packages = with pkgs; [
-      git
       tig
       just
       dust
       ouch
-      delta
       rsync
     ];
 
@@ -99,6 +97,14 @@
       };
 
       lfs.enable = true;
+    };
+
+    difftastic = {
+      enable = true;
+      git = {
+        enable = true;
+        diffToolMode = true;
+      };
     };
 
     yazi = {
