@@ -41,6 +41,7 @@
     nh.enable = true;
     television.enable = true;
     fd.enable = true;
+    delta.enable = true;
 
     codex = {
       enable = true;
