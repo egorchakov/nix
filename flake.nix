@@ -42,6 +42,7 @@
       self,
       darwin,
       nixpkgs,
+      nixpkgs-master,
       home-manager,
       llm-agents,
       stylix,
@@ -52,18 +53,17 @@
     let
       user = "evgenii";
       mkPkgs =
-        {
-          system,
-          allowUnfree ? false,
-        }:
+        { system }:
+        let
+          pkgsMaster = import nixpkgs-master {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
         import nixpkgs {
           inherit system;
-          config.allowUnfree = allowUnfree;
-          overlays = [
-            (_: prev: {
-              inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.hostPlatform.system}) direnv;
-            })
-          ];
+          config.allowUnfree = true;
+          overlays = [ (_: prev: { inherit (pkgsMaster) chatgpt; }) ];
         };
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
@@ -83,10 +83,7 @@
         "${user}@mbp" =
           let
             system = "aarch64-darwin";
-            pkgs = mkPkgs {
-              inherit system;
-              allowUnfree = true;
-            };
+            pkgs = mkPkgs { inherit system; };
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
@@ -97,10 +94,7 @@
         "${user}@arch" =
           let
             system = "x86_64-linux";
-            pkgs = mkPkgs {
-              inherit system;
-              allowUnfree = true;
-            };
+            pkgs = mkPkgs { inherit system; };
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
