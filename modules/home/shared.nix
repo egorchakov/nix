@@ -455,6 +455,17 @@
               args = [ "--stdin" ];
             };
           }
+          {
+            name = "jq";
+            auto-format = true;
+            formatter = {
+              command = "${pkgs.jqfmt}/bin/jqfmt";
+              args = [
+                "-ob"
+                "-ar"
+              ];
+            };
+          }
         ];
 
         language-server = {
@@ -524,6 +535,7 @@
         rust-analyzer
         rustfmt
         clippy
+        jq-lsp
       ];
     };
   };
