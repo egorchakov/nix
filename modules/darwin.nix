@@ -26,11 +26,7 @@
     nushell
   ];
 
-  environment.systemPackages = with pkgs; [
-    nextdns
-    chatgpt
-    bitwarden-desktop
-  ];
+  environment.systemPackages = with pkgs; [ nextdns ];
 
   users.users."${user}" = {
     home = "/Users/${user}";
