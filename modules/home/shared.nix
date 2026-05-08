@@ -435,6 +435,19 @@
             auto-format = true;
           }
           {
+            name = "yaml-config";
+            scope = "source.yaml";
+            grammar = "yaml";
+            language-id = "yaml";
+            file-types = [ { glob = "config/**/*.yaml"; } ];
+            comment-token = "#";
+            indent = {
+              tab-width = 2;
+              unit = "  ";
+            };
+            language-servers = [ "yaml-language-server" ];
+          }
+          {
             name = "yaml";
             auto-format = true;
             formatter = {
@@ -546,6 +559,90 @@
       text = ''
         bind main R !git rebase -i %(commit)^
         bind diff R !git rebase -i %(commit)^
+      '';
+    };
+
+    "helix/runtime/queries/yaml-config/highlights.scm" = {
+      enable = true;
+      text = ''
+        ; inherits: yaml
+      '';
+    };
+
+    "helix/runtime/queries/yaml-config/injections.scm" = {
+      enable = true;
+      text = ''
+        ; inherits: yaml
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_query))
+          value: (block_node
+            (block_scalar) @injection.content)
+          (#eq? @_query "query")
+          (#set! injection.language "sql"))
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_query))
+          value: (flow_node
+            (plain_scalar
+              (string_scalar) @injection.content))
+          (#eq? @_query "query")
+          (#set! injection.language "sql"))
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_query))
+          value: (flow_node
+            [(double_quote_scalar) (single_quote_scalar)] @injection.content)
+          (#eq? @_query "query")
+          (#set! injection.language "sql"))
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_hparams_jq))
+          value: (block_node
+            (block_scalar) @injection.content)
+          (#eq? @_hparams_jq "hparams_jq")
+          (#set! injection.language "jq"))
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_hparams_jq))
+          value: (flow_node
+            (plain_scalar
+              (string_scalar) @injection.content))
+          (#eq? @_hparams_jq "hparams_jq")
+          (#set! injection.language "jq"))
+
+        (block_mapping_pair
+          key: (flow_node
+            (plain_scalar
+              (string_scalar) @_hparams_jq))
+          value: (flow_node
+            [(double_quote_scalar) (single_quote_scalar)] @injection.content)
+          (#eq? @_hparams_jq "hparams_jq")
+          (#set! injection.language "jq"))
+      '';
+    };
+
+    "helix/runtime/queries/yaml-config/textobjects.scm" = {
+      enable = true;
+      text = ''
+        ; inherits: yaml
+      '';
+    };
+
+    "helix/runtime/queries/yaml-config/indents.scm" = {
+      enable = true;
+      text = ''
+        ; inherits: yaml
       '';
     };
   };
