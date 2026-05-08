@@ -3,6 +3,7 @@
   pkgs,
   stylix,
   llm-agents,
+  lumen,
   ...
 }:
 {
@@ -18,6 +19,7 @@
       dust
       ouch
       rsync
+      lumen.packages.${pkgs.stdenv.hostPlatform.system}.lumen
     ];
 
     sessionVariables = {

@@ -20,6 +20,12 @@
       };
     };
 
+    # TODO: https://github.com/NixOS/nixpkgs/pull/484661
+    lumen = {
+      url = "github:jnsahaj/lumen?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:nix-community/stylix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +51,7 @@
       nixpkgs-master,
       home-manager,
       llm-agents,
+      lumen,
       stylix,
       treefmt-nix,
       systems,
@@ -63,7 +70,7 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ (_: prev: { inherit (pkgsMaster) chatgpt; }) ];
+          overlays = [ (_: _prev: { inherit (pkgsMaster) chatgpt; }) ];
         };
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
       treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
@@ -87,7 +94,14 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user llm-agents stylix; };
+            extraSpecialArgs = {
+              inherit
+                user
+                llm-agents
+                lumen
+                stylix
+                ;
+            };
             modules = [ ./modules/home/darwin.nix ];
           };
 
@@ -98,7 +112,14 @@
           in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit user llm-agents stylix; };
+            extraSpecialArgs = {
+              inherit
+                user
+                llm-agents
+                lumen
+                stylix
+                ;
+            };
             modules = [ ./modules/home/arch.nix ];
           };
       }
@@ -109,7 +130,14 @@
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit user llm-agents stylix; };
+          extraSpecialArgs = {
+            inherit
+              user
+              llm-agents
+              lumen
+              stylix
+              ;
+          };
           modules = [
             ./modules/home/shared.nix
             ./modules/home/linux.nix
