@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [ winbox ];
+
   programs = {
     ghostty = {
       enable = true;
