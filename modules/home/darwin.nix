@@ -1,4 +1,9 @@
-{ pkgs, user, ... }:
+{
+  pkgs,
+  user,
+  config,
+  ...
+}:
 {
   imports = [
     ./shared.nix
@@ -25,7 +30,7 @@
       launchd.enable = true;
       settings = {
         mode.main.binding = {
-          alt-enter = "exec-and-forget open -n -a ghostty";
+          alt-enter = "exec-and-forget open -n -a ${config.programs.ghostty.package}/Applications/Ghostty.app";
           alt-o = "exec-and-forget open -n -b com.google.Chrome";
           alt-q = "close --quit-if-last-window";
           alt-slash = "layout tiles horizontal vertical";
