@@ -4,6 +4,7 @@
   stylix,
   llm-agents,
   lumen,
+  pytest-language-server,
   ...
 }:
 {
@@ -430,6 +431,7 @@
             language-servers = [
               "ruff"
               "ty"
+              "pytest-language-server"
             ];
           }
           {
@@ -508,6 +510,8 @@
             config.settings.format.preview = true;
           };
 
+          pytest-language-server.command = "pytest-language-server";
+
           clangd = {
             command = "${pkgs.clang-tools}/bin/clangd";
             args = [ "--clang-tidy" ];
@@ -546,6 +550,7 @@
         vscode-json-languageserver
         just-lsp
         ruff
+        pytest-language-server.packages.${pkgs.stdenv.hostPlatform.system}.default
         ty
         rust-analyzer
         rustfmt

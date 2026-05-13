@@ -440,6 +440,26 @@
         "type": "github"
       }
     },
+    "pytest-language-server": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778322202,
+        "narHash": "sha256-y0ldn6qv6k9d4wgQO547FoXWzbTL01csuonVISuKNro=",
+        "owner": "bellini666",
+        "repo": "pytest-language-server",
+        "rev": "f17fca14aa6b46ac5c2096d91db6d2e4100c961a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bellini666",
+        "repo": "pytest-language-server",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -449,6 +469,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
+        "pytest-language-server": "pytest-language-server",
         "stylix": "stylix",
         "systems": "systems_4",
         "treefmt-nix": "treefmt-nix"

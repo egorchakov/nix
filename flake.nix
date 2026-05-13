@@ -20,22 +20,28 @@
       };
     };
 
+    stylix = {
+      url = "github:nix-community/stylix?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    systems.url = "github:nix-systems/default?shallow=1";
+
     # TODO: https://github.com/NixOS/nixpkgs/pull/484661
     lumen = {
       url = "github:jnsahaj/lumen?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:nix-community/stylix?shallow=1";
+    pytest-language-server = {
+      url = "github:bellini666/pytest-language-server?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    systems.url = "github:nix-systems/default?shallow=1";
   };
 
   nixConfig = {
@@ -52,6 +58,7 @@
       home-manager,
       llm-agents,
       lumen,
+      pytest-language-server,
       stylix,
       treefmt-nix,
       systems,
@@ -99,6 +106,7 @@
                 user
                 llm-agents
                 lumen
+                pytest-language-server
                 stylix
                 ;
             };
@@ -117,6 +125,7 @@
                 user
                 llm-agents
                 lumen
+                pytest-language-server
                 stylix
                 ;
             };
@@ -135,6 +144,7 @@
               user
               llm-agents
               lumen
+              pytest-language-server
               stylix
               ;
           };
