@@ -80,6 +80,11 @@
           runtime_metrics = true;
           shell_snapshot = true;
           unified_exec = true;
+          goals = true;
+          hooks = true;
+          memories = true;
+          prevent_idle_sleep = true;
+          undo = true;
         };
       };
     };
