@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   user,
   config,
@@ -154,7 +155,10 @@
       };
     };
 
-    ghostty.package = pkgs.ghostty-bin;
+    ghostty = {
+      package = pkgs.ghostty-bin;
+      settings.font-size = lib.mkForce 14;
+    };
   };
 
   stylix.fonts.sizes.terminal = 14;
