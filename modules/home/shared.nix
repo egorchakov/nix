@@ -7,6 +7,9 @@
   pytest-language-server,
   ...
 }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+in
 {
   imports = [ stylix.homeModules.stylix ];
 
@@ -20,7 +23,7 @@
       dust
       ouch
       rsync
-      lumen.packages.${pkgs.stdenv.hostPlatform.system}.lumen
+      lumen.packages.${system}.lumen
     ];
 
     sessionVariables = {
@@ -48,7 +51,7 @@
 
     codex = {
       enable = true;
-      package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex;
+      package = llm-agents.packages.${system}.codex;
       settings = {
         model = "gpt-5.5";
         model_reasoning_effort = "xhigh";
@@ -555,7 +558,7 @@
         vscode-json-languageserver
         just-lsp
         ruff
-        pytest-language-server.packages.${pkgs.stdenv.hostPlatform.system}.default
+        pytest-language-server.packages.${system}.default
         ty
         rust-analyzer
         rustfmt

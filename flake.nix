@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master?shallow=1";
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,8 +23,6 @@
       url = "github:nix-community/stylix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    systems.url = "github:nix-systems/default?shallow=1";
 
     # TODO: https://github.com/NixOS/nixpkgs/pull/484661
     lumen = {
@@ -50,95 +47,41 @@
   };
 
   outputs =
-    inputs@{
+    {
       self,
       darwin,
       nixpkgs,
-      nixpkgs-master,
       home-manager,
+      nix-homebrew,
       llm-agents,
       lumen,
       pytest-language-server,
       stylix,
       treefmt-nix,
-      systems,
       ...
     }:
     let
+      inherit (nixpkgs) lib;
+
       user = "evgenii";
+
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+
       mkPkgs =
         { system }:
-        let
-          pkgsMaster = import nixpkgs-master {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        in
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [ (_: _prev: { inherit (pkgsMaster) chatgpt; }) ];
         };
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-    in
-    {
-      darwinConfigurations = {
-        mbp = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = inputs // {
-            inherit user;
-          };
-          modules = [ ./modules/darwin.nix ];
-        };
-      };
 
-      homeConfigurations = {
-        "${user}@mbp" =
-          let
-            system = "aarch64-darwin";
-            pkgs = mkPkgs { inherit system; };
-          in
-          home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = {
-              inherit
-                user
-                llm-agents
-                lumen
-                pytest-language-server
-                stylix
-                ;
-            };
-            modules = [ ./modules/home/darwin.nix ];
-          };
-
-        "${user}@arch" =
-          let
-            system = "x86_64-linux";
-            pkgs = mkPkgs { inherit system; };
-          in
-          home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = {
-              inherit
-                user
-                llm-agents
-                lumen
-                pytest-language-server
-                stylix
-                ;
-            };
-            modules = [ ./modules/home/arch.nix ];
-          };
-      }
-      // nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
-        system:
-        let
-          pkgs = mkPkgs { inherit system; };
-        in
+      mkHome =
+        { system, modules }:
         home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = mkPkgs { inherit system; };
           extraSpecialArgs = {
             inherit
               user
@@ -148,6 +91,37 @@
               stylix
               ;
           };
+
+          inherit modules;
+        };
+
+      eachSystem = f: lib.genAttrs supportedSystems (system: f system nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (_system: pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+    in
+    {
+      darwinConfigurations = {
+        mbp = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit self user nix-homebrew; };
+          modules = [ ./modules/darwin.nix ];
+        };
+      };
+
+      homeConfigurations = {
+        "${user}@mbp" = mkHome {
+          system = "aarch64-darwin";
+          modules = [ ./modules/home/darwin.nix ];
+        };
+
+        "${user}@arch" = mkHome {
+          system = "x86_64-linux";
+          modules = [ ./modules/home/arch.nix ];
+        };
+      }
+      // lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
+        system:
+        mkHome {
+          inherit system;
           modules = [
             ./modules/home/shared.nix
             ./modules/home/linux.nix
@@ -155,9 +129,9 @@
         }
       );
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
-      });
+      formatter = eachSystem (system: _pkgs: treefmtEval.${system}.config.build.wrapper);
+      checks = eachSystem (
+        system: _pkgs: { formatting = treefmtEval.${system}.config.build.check self; }
+      );
     };
 }
