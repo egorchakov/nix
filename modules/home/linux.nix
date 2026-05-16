@@ -1,5 +1,8 @@
 { user, ... }:
 {
-  home.username = user;
-  home.homeDirectory = "/home/${user}";
+  home = {
+    username = user;
+    homeDirectory = "/home/${user}";
+    sessionVariables.NIXOS_OZONE_WL = "1";
+  };
 }

@@ -21,11 +21,5 @@
     impala
   ];
 
-  stylix = {
-    fonts.sizes.terminal = 16;
-    targets = {
-      gtk.enable = true;
-      tofi.enable = true;
-    };
-  };
+  stylix.fonts.sizes.terminal = 16;
 }

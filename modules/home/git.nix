@@ -1,0 +1,34 @@
+_: {
+  programs = {
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          email = "evgorchakov@gmail.com";
+          name = "Evgenii Gorchakov";
+        };
+        push.autoSetupRemote = true;
+      };
+
+      lfs.enable = true;
+    };
+
+    difftastic = {
+      enable = true;
+      git = {
+        enable = true;
+        diffToolMode = true;
+      };
+    };
+
+    delta.enable = true;
+  };
+
+  xdg.configFile."tig/config" = {
+    enable = true;
+    text = ''
+      bind main R !git rebase -i %(commit)^
+      bind diff R !git rebase -i %(commit)^
+    '';
+  };
+}
