@@ -1,9 +1,21 @@
 { pkgs, stylix, ... }:
 {
   imports = [ stylix.homeModules.stylix ];
-  disabledModules = [
-    "${stylix}/modules/blender/hm.nix"
-    "${stylix}/modules/kde/hm.nix"
+  disabledModules = map (x: "${stylix}/modules/${x}/hm.nix") [
+    "blender"
+    "kde"
+    "qt"
+    "hyprpanel"
+    "qutebrowser"
+    "opencode"
+    "gnome"
+    "discord"
+    "vscode"
+    "zed"
+    "zen-browser"
+    "neovim"
+    "obsidian"
+    "emacs"
   ];
 
   stylix = {
