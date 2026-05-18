@@ -7,10 +7,7 @@
 {
   imports = [ ./darwin/homebrew.nix ];
 
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    trusted-users = [ user ];
-  };
+  nix.enable = false;
 
   nixpkgs.config.allowUnfree = true;
   system = {
