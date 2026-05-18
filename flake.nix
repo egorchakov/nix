@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hydra-lsp = {
+      url = "github:m-lyon/hydra-lsp?shallow=1";
+      flake = false;
+    };
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +58,7 @@
       nixpkgs,
       home-manager,
       nix-homebrew,
+      hydra-lsp,
       llm-agents,
       lumen,
       pytest-language-server,
@@ -85,6 +91,7 @@
           extraSpecialArgs = {
             inherit
               user
+              hydra-lsp
               llm-agents
               lumen
               pytest-language-server

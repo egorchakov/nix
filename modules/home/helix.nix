@@ -1,9 +1,22 @@
-{ pkgs, pytest-language-server, ... }:
+{
+  pkgs,
+  hydra-lsp,
+  pytest-language-server,
+  ...
+}:
 let
   system = pkgs.stdenv.hostPlatform.system;
   yamlConfigQueries = ./helix/runtime/queries/yaml-config;
+  hydra-lsp-package = pkgs.rustPlatform.buildRustPackage {
+    pname = "hydra-lsp";
+    version = "0.3.0";
+    src = hydra-lsp;
+    cargoHash = "sha256-o7neVjFqMwCY8iRRUOEYogK/ILOZL7VyObOciUJw/6A=";
+  };
 in
 {
+  home.packages = [ hydra-lsp-package ];
+
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -143,7 +156,10 @@ in
             tab-width = 2;
             unit = "  ";
           };
-          language-servers = [ "yaml-language-server" ];
+          language-servers = [
+            "yaml-language-server"
+            "hydra-lsp"
+          ];
         }
         {
           name = "yaml";
@@ -206,6 +222,11 @@ in
 
         pytest-language-server.command = "pytest-language-server";
 
+        hydra-lsp = {
+          command = "hydra-lsp";
+          config.settings.pythonInterpreter = ".venv/bin/python";
+        };
+
         clangd = {
           command = "${pkgs.clang-tools}/bin/clangd";
           args = [ "--clang-tidy" ];
@@ -243,6 +264,7 @@ in
       yaml-language-server
       vscode-json-languageserver
       just-lsp
+      hydra-lsp-package
       ruff
       pytest-language-server.packages.${system}.default
       ty

@@ -316,6 +316,22 @@
         "type": "github"
       }
     },
+    "hydra-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774805059,
+        "narHash": "sha256-YKr8yCypQog5rtqaffqXpTdc2u/bQU/edEaFEuRm4Lk=",
+        "owner": "m-lyon",
+        "repo": "hydra-lsp",
+        "rev": "624d4ab2e7a801d2ea4680abba61ca1adef08159",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m-lyon",
+        "repo": "hydra-lsp",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "blueprint": "blueprint",
@@ -448,6 +464,7 @@
       "inputs": {
         "darwin": "darwin",
         "home-manager": "home-manager",
+        "hydra-lsp": "hydra-lsp",
         "llm-agents": "llm-agents",
         "lumen": "lumen",
         "nix-homebrew": "nix-homebrew",
