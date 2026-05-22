@@ -172,6 +172,14 @@ in
         {
           name = "just";
           auto-format = true;
+          formatter = {
+            command = "${pkgs.just}/bin/just";
+            args = [
+              "--dump"
+              "--justfile"
+              "-"
+            ];
+          };
         }
         {
           name = "nu";
