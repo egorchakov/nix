@@ -90,10 +90,12 @@
           config.allowUnfree = true;
         };
 
+      pkgsFor = lib.genAttrs supportedSystems (system: mkPkgs { inherit system; });
+
       mkHome =
         { system, modules }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = mkPkgs { inherit system; };
+          pkgs = pkgsFor.${system};
           extraSpecialArgs = {
             inherit
               user
@@ -108,7 +110,7 @@
           inherit modules;
         };
 
-      eachSystem = f: lib.genAttrs supportedSystems (system: f system nixpkgs.legacyPackages.${system});
+      eachSystem = f: lib.genAttrs supportedSystems (system: f system pkgsFor.${system});
       treefmtEval = eachSystem (_system: pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {

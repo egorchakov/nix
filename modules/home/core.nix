@@ -1,5 +1,6 @@
 _: {
   news.display = "silent";
+  manual.manpages.enable = false;
 
   home = {
     stateVersion = "26.05";

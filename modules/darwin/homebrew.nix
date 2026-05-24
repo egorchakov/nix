@@ -11,7 +11,7 @@
 
   homebrew = {
     enable = true;
-    greedyCasks = true;
+    greedyCasks = false;
     casks = [
       "tunnelblick"
       "cloudflare-warp"
@@ -23,9 +23,9 @@
     ];
     brews = [ "TeddyHuang-00/app/sshping" ];
     onActivation = {
-      autoUpdate = true;
+      autoUpdate = false;
       cleanup = "uninstall";
-      upgrade = true;
+      upgrade = false;
     };
   };
 }
