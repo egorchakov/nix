@@ -32,6 +32,7 @@ in
       enable = true;
       flake = "${config.home.homeDirectory}/.config/nix";
     };
+    nix-index-database.comma.enable = true;
     television.enable = true;
     fd.enable = true;
 

@@ -19,6 +19,11 @@
       };
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:nix-community/stylix?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -64,6 +69,7 @@
       darwin,
       nixpkgs,
       home-manager,
+      nix-index-database,
       nix-homebrew,
       hydra-lsp,
       llm-agents,
@@ -105,6 +111,7 @@
               lumen
               pytest-language-server
               stylix
+              nix-index-database
               ;
           };
 
