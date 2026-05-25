@@ -52,15 +52,15 @@ in
           }) archiveMimeSuffixes
           ++ map (type: {
             run = "duckdb";
-            name = "*.${type}";
+            url = "*.${type}";
           }) tabularPreviewExtensions;
-      };
 
-      prepend_preloaders = map (type: {
-        run = "duckdb";
-        name = "*.${type}";
-        multi = false;
-      }) tabularPreloaderExtensions;
+        prepend_preloaders = map (type: {
+          run = "duckdb";
+          url = "*.${type}";
+          multi = false;
+        }) tabularPreloaderExtensions;
+      };
     };
     keymap = {
       mgr = {
