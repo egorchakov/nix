@@ -28,7 +28,10 @@ in
     gh.enable = true;
     nix-your-shell.enable = true;
     carapace.enable = true;
-    nh.enable = true;
+    nh = {
+      enable = true;
+      flake = "${config.home.homeDirectory}/.config/nix";
+    };
     television.enable = true;
     fd.enable = true;
 
