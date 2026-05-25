@@ -7,9 +7,9 @@
       whatsapp-for-mac
       google-chrome
       chatgpt
-      bitwarden-desktop
       slack
-      # telegram-desktop
+      # bitwarden-desktop
+      telegram-desktop
       # rerun
     ];
   };
