@@ -47,6 +47,7 @@
   };
 
   nixConfig = {
+    narinfo-cache-positive-ttl = 3600;
     extra-substituters = [
       "https://cache.numtide.com"
       "https://cache.garnix.io"
