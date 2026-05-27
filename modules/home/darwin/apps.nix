@@ -1,4 +1,22 @@
-{ pkgs, user, ... }:
+{
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+let
+  rerun = (pkgs.rerun.override { buildWebViewerFeatures = [ "map_view" ]; }).overrideAttrs (
+    old:
+    let
+      rerunFeatures = lib.unique ((old.cargoBuildFeatures or old.buildFeatures or [ ]) ++ [ "map_view" ]);
+    in
+    {
+      buildFeatures = rerunFeatures;
+      cargoBuildFeatures = rerunFeatures;
+      cargoCheckFeatures = rerunFeatures;
+    }
+  );
+in
 {
   home = {
     username = user;
@@ -10,7 +28,7 @@
       slack
       # bitwarden-desktop
       telegram-desktop
-      # rerun
+      rerun
     ];
   };
 }
