@@ -1,5 +1,6 @@
 {
   pkgs,
+  helix,
   hydra-lsp,
   pytest-language-server,
   ...
@@ -20,6 +21,7 @@ in
   programs.helix = {
     enable = true;
     defaultEditor = true;
+    package = helix.packages.${system}.default;
     settings = {
       editor = {
         auto-save = true;

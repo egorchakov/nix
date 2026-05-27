@@ -1,14 +1,35 @@
 {
+  nixConfig = {
+    narinfo-cache-positive-ttl = 3600;
+    extra-substituters = [
+      "https://cache.numtide.com"
+      "https://cache.garnix.io"
+      "https://helix.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
     darwin = {
       url = "github:nix-darwin/nix-darwin?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     home-manager = {
       url = "github:nix-community/home-manager/master?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helix = {
+      url = "github:helix-editor/helix/master?shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli/nix-homebrew?shallow=1";
 
     llm-agents = {
@@ -51,18 +72,6 @@
     };
   };
 
-  nixConfig = {
-    narinfo-cache-positive-ttl = 3600;
-    extra-substituters = [
-      "https://cache.numtide.com"
-      "https://cache.garnix.io"
-    ];
-    extra-trusted-public-keys = [
-      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
-  };
-
   outputs =
     {
       self,
@@ -71,6 +80,7 @@
       home-manager,
       nix-index-database,
       nix-homebrew,
+      helix,
       hydra-lsp,
       llm-agents,
       lumen,
@@ -106,6 +116,7 @@
           extraSpecialArgs = {
             inherit
               user
+              helix
               hydra-lsp
               llm-agents
               lumen
