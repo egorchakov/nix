@@ -26,7 +26,10 @@ in
     bottom.enable = true;
     htop.enable = true;
     gh.enable = true;
-    nix-your-shell.enable = true;
+    nix-your-shell = {
+      enable = true;
+      nix-output-monitor.enable = true;
+    };
     carapace.enable = true;
     nh = {
       enable = true;
