@@ -71,25 +71,33 @@ in
       settings = {
         show_banner = false;
       };
-      # plugins = with pkgs.nushellPlugins; [
-      # skim
-      # polars
-      # highlight
-      # ];
-      extraConfig = ''
-        const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${pkgs.nu_scripts}/share/nu_scripts']
+      plugins = with pkgs.nushellPlugins; [
+        polars
+        query
+      ];
+      extraConfig =
+        let
+          nushellCustomCompletions = [
+            "aerospace"
+            "nix"
+            "gh"
+            "git"
+            "just"
+            "rg"
+            "ssh"
+            "uv"
+            "television"
+            "zellij"
+            "zoxide"
+          ];
+        in
+        ''
+          const NU_LIB_DIRS = $NU_LIB_DIRS ++ ['${pkgs.nu_scripts}/share/nu_scripts']
 
-        use custom-completions/aerospace/aerospace-completions.nu *
-        use custom-completions/docker/docker-completions.nu *
-        use custom-completions/nix/nix-completions.nu *
-        use custom-completions/git/git-completions.nu *
-        use custom-completions/just/just-completions.nu *
-        use custom-completions/pre-commit/pre-commit-completions.nu *
-        use custom-completions/rg/rg-completions.nu *
-        use custom-completions/ssh/ssh-completions.nu *
-        use custom-completions/uv/uv-completions.nu *
-        use custom-completions/zellij/zellij-completions.nu *
-      '';
+          ${pkgs.lib.concatMapStringsSep "\n" (
+            name: "use custom-completions/${name}/${name}-completions.nu *"
+          ) nushellCustomCompletions}
+        '';
     };
 
     zellij = {
