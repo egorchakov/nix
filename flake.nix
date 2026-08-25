@@ -11,7 +11,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable?shallow=1";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -19,7 +19,7 @@
     };
 
     treefmt-nix = {
-      url = "github:numtide/treefmt-nix?shallow=1";
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,7 +29,7 @@
     };
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin?shallow=1";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -44,17 +44,17 @@
     };
 
     helix = {
-      url = "github:helix-editor/helix/master?shallow=1";
+      url = "github:helix-editor/helix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master?shallow=1";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     llm-agents = {
-      url = "github:numtide/llm-agents.nix?shallow=1";
+      url = "github:numtide/llm-agents.nix";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
@@ -62,7 +62,7 @@
       };
     };
 
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew?shallow=1";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -85,7 +85,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix?shallow=1";
+      url = "github:nix-community/stylix";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
