@@ -234,7 +234,6 @@ in
 
         nixd = {
           command = "${pkgs.nixd}/bin/nixd";
-          args = [ "--semantic-tokens=true" ];
           config.nixd = {
             nixpkgs.expr = ''
               let flake = builtins.getFlake (builtins.toString ./.);
