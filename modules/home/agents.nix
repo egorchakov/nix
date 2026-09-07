@@ -27,7 +27,7 @@ in
       enableMcpIntegration = true;
       package = self.inputs.llm-agents.packages.${system}.codex;
       settings = {
-        model = "gpt-5.6-sol";
+        model = "gpt-6-astra";
         model_reasoning_effort = "max";
         plan_mode_reasoning_effort = "max";
         service_tier = "fast";
@@ -50,10 +50,9 @@ in
           ];
         };
         features = {
-          code_mode = true;
-          hooks = true;
-          memories = true;
+          code_mode.enabled = true;
           prevent_idle_sleep = true;
+          context_management.experimental_mode = true;
         };
       };
       context = ''
