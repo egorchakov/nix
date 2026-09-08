@@ -327,7 +327,6 @@
               packages = [
                 nushell
                 just
-                skim
                 pkgs.deploy-rs
                 direnv
                 gitMinimal

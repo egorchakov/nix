@@ -27,7 +27,6 @@
     bat.enable = true;
     delta.enable = true;
     ripgrep.enable = true;
-    skim.enable = true;
     zoxide.enable = true;
     uv.enable = true;
     bottom.enable = true;
@@ -59,8 +58,8 @@
       settings = {
         auto_sync = false;
         update_check = false;
-        search_mode = "skim";
-        search_mode_shell_up_key_binding = "skim";
+        search_mode = "fuzzy";
+        search_mode_shell_up_key_binding = "fuzzy";
         inline_height = 10;
         keymap_mode = "vim-insert";
       };
