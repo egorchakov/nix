@@ -28,8 +28,8 @@ in
       package = self.inputs.llm-agents.packages.${system}.codex;
       settings = {
         model = "gpt-6-astra";
-        model_reasoning_effort = "max";
-        plan_mode_reasoning_effort = "max";
+        model_reasoning_effort = "xhigh";
+        plan_mode_reasoning_effort = "xhigh";
         service_tier = "fast";
         personality = "pragmatic";
         approval_policy = "never";
