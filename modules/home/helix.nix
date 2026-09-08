@@ -6,6 +6,19 @@
 }:
 let
   system = pkgs.stdenv.hostPlatform.system;
+  git-blame-lsp = pkgs.stdenv.mkDerivation {
+    pname = "git-blame-lsp";
+    version = "unstable-${self.inputs.git-blame-lsp.shortRev}";
+    src = self.inputs.git-blame-lsp;
+    nativeBuildInputs = [
+      pkgs.zig_0_16.hook
+      pkgs.makeBinaryWrapper
+    ];
+    postFixup = ''
+      wrapProgram $out/bin/git-blame-lsp \
+        --prefix PATH : ${lib.makeBinPath [ pkgs.gitMinimal ]}
+    '';
+  };
 in
 {
   programs.helix = {
@@ -118,10 +131,32 @@ in
     languages = {
       language = [
         {
+          name = "cpp";
+          language-servers = [
+            "clangd"
+            "git-blame"
+          ];
+        }
+        {
+          name = "ron";
+          language-servers = [
+            "ron-lsp"
+            "git-blame"
+          ];
+        }
+        {
+          name = "rust";
+          language-servers = [
+            "rust-analyzer"
+            "git-blame"
+          ];
+        }
+        {
           name = "markdown";
           language-servers = [
             "rumdl"
             "mpls"
+            "git-blame"
           ];
         }
         {
@@ -137,6 +172,7 @@ in
           language-servers = [
             "nixd"
             "statix"
+            "git-blame"
           ];
         }
         {
@@ -146,12 +182,16 @@ in
             "ruff"
             "ty"
             "pyrefly"
+            "git-blame"
           ];
         }
         {
           name = "toml";
           auto-format = true;
-          language-servers = [ "tombi" ];
+          language-servers = [
+            "tombi"
+            "git-blame"
+          ];
         }
         {
           name = "yaml-config";
@@ -165,7 +205,10 @@ in
             tab-width = 2;
             unit = "  ";
           };
-          language-servers = [ "yaml-language-server" ];
+          language-servers = [
+            "yaml-language-server"
+            "git-blame"
+          ];
           formatter = {
             command = "${pkgs.yamlfmt}/bin/yamlfmt";
             args = [ "-" ];
@@ -174,6 +217,11 @@ in
         {
           name = "yaml";
           auto-format = true;
+          language-servers = [
+            "yaml-language-server"
+            "ansible-language-server"
+            "git-blame"
+          ];
           formatter = {
             command = "${pkgs.yamlfmt}/bin/yamlfmt";
             args = [ "-" ];
@@ -182,6 +230,10 @@ in
         {
           name = "just";
           auto-format = true;
+          language-servers = [
+            "just-lsp"
+            "git-blame"
+          ];
           formatter = {
             command = "${pkgs.just}/bin/just";
             args = [
@@ -203,6 +255,7 @@ in
         {
           name = "jq";
           auto-format = true;
+          language-servers = [ "jq-lsp" ];
           formatter = {
             command = "${pkgs.jqfmt}/bin/jqfmt";
             args = [
@@ -214,6 +267,8 @@ in
       ];
 
       language-server = {
+        git-blame.command = "${git-blame-lsp}/bin/git-blame-lsp";
+
         rust-analyzer = {
           config = {
             cargo.allFeatures = true;

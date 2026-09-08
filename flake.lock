@@ -349,6 +349,22 @@
         "type": "github"
       }
     },
+    "git-blame-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788006150,
+        "narHash": "sha256-qsL8YQHCBhVzbOZJy8MWRdDVS6B1+7CnzsnRj16IgeM=",
+        "owner": "credimusin",
+        "repo": "git-blame-lsp",
+        "rev": "8b36658e4f725dda1214db5c3a8a1a95c343bab5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "credimusin",
+        "repo": "git-blame-lsp",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -603,6 +619,7 @@
         "darwin": "darwin_2",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
+        "git-blame-lsp": "git-blame-lsp",
         "git-hooks": "git-hooks",
         "helix": "helix",
         "home-manager": "home-manager_2",

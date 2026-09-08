@@ -91,6 +91,11 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+
+    git-blame-lsp = {
+      url = "github:credimusin/git-blame-lsp";
+      flake = false;
+    };
   };
 
   outputs =
