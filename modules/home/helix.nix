@@ -1,4 +1,9 @@
-{ pkgs, self, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 let
   system = pkgs.stdenv.hostPlatform.system;
 in
@@ -7,7 +12,15 @@ in
     enable = true;
     defaultEditor = true;
     package = self.inputs.helix.packages.${system}.default;
+    themes.stylix-brighter-comments = {
+      inherits = "stylix";
+      comment = {
+        fg = "#707070";
+        modifiers = [ "italic" ];
+      };
+    };
     settings = {
+      theme = lib.mkForce "stylix-brighter-comments";
       editor = {
         auto-save = true;
         true-color = true;
