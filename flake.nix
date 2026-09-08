@@ -135,10 +135,13 @@
           system = "x86_64-linux";
         };
         delta-dev1 = {
-          address = "192.168.144.35";
+          address = "172.30.0.62";
           system = "aarch64-linux";
         };
-        delta-emc1.address = "172.30.0.40";
+        delta-devcar = {
+          address = "172.30.0.40";
+          system = "aarch64-linux";
+        };
       };
 
       addressedHosts = lib.filterAttrs (_: host: host ? address) hosts;
