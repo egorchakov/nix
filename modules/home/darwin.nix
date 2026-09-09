@@ -11,6 +11,7 @@
       cloudflare-warp
       signal-desktop
       telegram-desktop
+      discord
     ];
   };
 }
