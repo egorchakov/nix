@@ -25,7 +25,7 @@
           "git"
           "just"
           "rg"
-          "ssh"
+          # "ssh"
           "uv"
           "television"
           "zellij"
