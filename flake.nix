@@ -74,11 +74,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pohuy = {
-      url = "github:smixs/pohuy";
-      flake = false;
-    };
-
     srvos = {
       url = "github:nix-community/srvos";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -94,6 +89,22 @@
 
     git-blame-lsp = {
       url = "github:credimusin/git-blame-lsp";
+      flake = false;
+    };
+
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    copper-rs-skills = {
+      url = "github:copper-project/copper-rs-skills";
+      flake = false;
+    };
+
+    pohuy = {
+      url = "github:smixs/pohuy";
       flake = false;
     };
   };

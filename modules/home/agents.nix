@@ -3,12 +3,25 @@ let
   system = pkgs.stdenv.hostPlatform.system;
 in
 {
-  home.file.".agents/skills/pohuy".source = builtins.path {
-    name = "pohuy-skill";
-    path = self.inputs.pohuy + "/skills/pohuy";
-  };
+  imports = [ self.inputs.agent-skills.homeManagerModules.default ];
 
   programs = {
+    agent-skills = {
+      enable = true;
+      sources = {
+        copper.path = self.inputs.copper-rs-skills;
+        pohuy = {
+          path = self.inputs.pohuy;
+          subdir = "skills";
+        };
+      };
+      skills.enableAll = true;
+      targets.agents = {
+        enable = true;
+        structure = "link";
+        dest = ".agents/skills";
+      };
+    };
 
     mcp = {
       enable = true;
