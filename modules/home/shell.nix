@@ -14,6 +14,7 @@
       rsync
       ouch
       duckdb
+      chafa
     ];
 
     file.".duckdbrc".text = ''
