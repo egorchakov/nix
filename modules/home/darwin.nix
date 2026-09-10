@@ -7,11 +7,15 @@
       google-chrome
       chatgpt
       slack
-      rerun
       cloudflare-warp
       signal-desktop
       telegram-desktop
       discord
+      (rerun.overrideAttrs (old: {
+        cargoBuildFeatures = old.cargoBuildFeatures ++ [ "map_view" ];
+        doCheck = false;
+        doInstallCheck = false;
+      }))
     ];
   };
 }
