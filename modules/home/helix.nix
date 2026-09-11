@@ -271,8 +271,11 @@ in
 
         rust-analyzer = {
           config = {
-            cargo.allFeatures = true;
-            check.command = "clippy";
+            check = {
+              command = "clippy";
+              workspace = false;
+            };
+            completion.fullFunctionSignatures.enable = true;
           };
         };
 
